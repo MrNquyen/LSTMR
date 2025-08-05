@@ -1,0 +1,73 @@
+import torch
+from torch import nn
+from modules.attention import LSTMAttention
+from torch.nn import functional as F
+from utils.registry import registry 
+
+class DecoderBase(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.device = registry.get_args("device")
+        self.model_config = registry.get_config("model_attributes")
+        self.decoder_config = self.model_config["decoder"]
+        self.hidden_size = self.model_config["hidden_size"]
+
+
+class Decoder(DecoderBase):
+    def __init__(self):
+        super().__init__()
+        
+        #-- Layers
+        self.lstm_cell = nn.LSTMCell(
+            input_size=self.hidden_size,
+            hidden_size=self.hidden_size,
+            device=self.device,
+            dtype=torch.float32
+        )
+
+        self.attention = LSTMAttention(
+            input_dim=self.hidden_size,
+            hidden_size=self.hidden_size
+        )
+
+    def forward(
+            self, 
+            obj_features,
+            ocr_features,
+            prev_hidden_state,
+            prev_cell_state,
+            prev_word_embed
+        ):
+        #-- Concat OCR features and Obj features
+        input_features = torch.concat([
+            obj_features,
+            ocr_features
+        ], dim=1)
+        num_features = input_features.size(1)
+
+        #-- Fuse OCR and Obj features with mean
+        fuse_features = torch.mean(input_features, dim=1)
+
+        #-- Calculate attention scores
+        attention_scores = self.attention(
+            prev_hidden_state=prev_hidden_state,
+            input_features=input_features
+        )
+        
+        prev_hidden_state_attention = input_features * attention_scores
+        attended_vector = torch.sum(prev_hidden_state_attention, dim=1)
+
+        #-- Input to cell
+        cell_inputs = torch.concat([
+            fuse_features,
+            attended_vector,
+            prev_word_embed
+        ])
+
+        ht, ct = self.lstm_cell(
+            cell_inputs,
+            (prev_hidden_state, prev_cell_state)
+        )
+        return ht, ct # Hidden_state, cell_state
+
+    

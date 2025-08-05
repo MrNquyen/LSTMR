@@ -1,0 +1,64 @@
+
+dataset_attributes:
+  image_features:
+    train:
+    - /data/npl/ViInfographicCaps/features/swintextspotter, /data/npl/ViInfographicCaps/features/faster_rcnn/features
+    val:
+    - /data/npl/ViInfographicCaps/features/swintextspotter, /data/npl/ViInfographicCaps/features/faster_rcnn/features
+    test:
+    - /data/npl/ViInfographicCaps/features/swintextspotter, /data/npl/ViInfographicCaps/features/faster_rcnn/features
+    # - open_images/detectron_fix_100/fc6/test,m4c_textvqa_ocr_en_frcn_features/test_images
+  imdb_files:
+    train:
+    - /data/npl/ViInfographicCaps/data/train_imdb.npy
+    val:
+    - /data/npl/ViInfographicCaps/data/val_imdb.npy
+    test:
+    - /data/npl/ViInfographicCaps/data/test_imdb.npy
+model_attributes:
+  image_dir: /data/npl/ViInfographicCaps/images/images
+  fasttext_bin: ./utils/fasttext/wiki.vi.bin
+  # fasttext_bin: utils/fasttext/wiki.vi.bin
+  hidden_size: 768
+  ocr:
+    dim: 256
+    num_ocr: 100
+    concat_dim: 1086
+  obj:
+    dim: 1024
+    num_obj: 100
+  text_embedding:
+    common_vocab: ./data/vocab.txt
+    max_length: 30
+    return_tensors: pt
+optimizer_attributes:
+  lr_scale: 0.1 # scale lr for finetuning modules
+  params:
+    eps: 1.0e-08
+    lr: 1e-4
+    weight_decay: 0
+  type: Adam
+training_parameters:
+  epochs: 26
+  batch_size: 64
+  iterations: 9000
+  lr_scheduler:
+    status: true
+    type: "step"
+    step_size: 7000
+    gamma : 0.1
+  lr_steps:
+    - 6000
+    - 10000
+  lr_ratio: 0.1
+  use_warmup: true
+  warmup_factor: 0.2
+  warmup_iterations: 1000
+  max_iterations: 12000
+  snapshot_interval: 500
+  monitored_metric: m4c_textcaps/textcaps_bleu4
+  metric_minimize: false
+  seed: 2021
+
+
+    
