@@ -140,7 +140,7 @@ def _batch_padding(input, max_length, pad_value, return_mask=True):
     for item in input:
         pad_post = pad_value.expand(max_length-len(item), -1)
         item = torch.concat(
-            [item, pad_post],
+            [torch.tensor(item), pad_post],
             dim=0
         )
         pad_input.append(item)

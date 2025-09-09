@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+from icecream import ic
 
 class LSTMAttention(nn.Module):
     def __init__(self, input_dim, hidden_size):
@@ -22,7 +23,8 @@ class LSTMAttention(nn.Module):
     def forward(
             self,
             prev_hidden_state,
-            input_features
+            input_features,
+            mask,
         ):
         """
             Function:
@@ -42,12 +44,26 @@ class LSTMAttention(nn.Module):
             Attention scores table with (BS, M+N, 1)
 
         """
-        return self.softmax(
-            self.w(
-                self.activation(
-                    self.hidden_state_linear(prev_hidden_state) + \
-                    self.input_linear(input_features)
-                )
+        scores = self.w(
+            self.activation(
+                self.hidden_state_linear(prev_hidden_state.unsqueeze(1)) + \
+                self.input_linear(input_features)
             )
         )
+        # extended_attention_mask = (1.0 - mask) * -10000.0
+        # extended_attention_mask = extended_attention_mask
+        # scores = scores + extended_attention_mask
+
+        scores = scores.masked_fill(mask == 0, float('-inf'))
+
+        attn_weights = self.softmax(scores)
+
+        #-- Avoid nan
+        attn_weights = torch.where(
+            attn_weights.isnan(),
+            torch.zeros_like(attn_weights),
+            attn_weights
+        )
+        return attn_weights
+        
 

@@ -15,7 +15,7 @@ from utils.logger import Logger
 from utils.metrics import metric_calculate
 from utils.utils import save_json
 from utils.registry import registry
-from project.models.lstmr import LSTMR
+from project.models.lstmr_modify import LSTMR
 from icecream import ic
 
 # ~Trainer~
@@ -204,13 +204,13 @@ class Trainer():
         batch["list_ocr_boxes"], ocr_mask = _batch_padding(batch["list_ocr_boxes"], max_length=model_config["ocr"]["num_ocr"], pad_value=box_pad)
         batch["list_ocr_feat"] = _batch_padding(batch["list_ocr_feat"], max_length=model_config["ocr"]["num_ocr"], pad_value=ocr_feat_pad, return_mask=False)
         batch["list_ocr_tokens"] = _batch_padding_string(batch["list_ocr_tokens"], max_length=model_config["ocr"]["num_ocr"], pad_value="<pad>", return_mask=False)
-        batch["ocr_mask"] = ocr_mask.to(torch.bool)
+        batch["ocr_mask"] = ocr_mask
 
         # Padding obj
         obj_feat_pad = torch.zeros((1, dim_obj))
         batch["list_obj_boxes"], obj_mask = _batch_padding(batch["list_obj_boxes"], max_length=model_config["obj"]["num_obj"], pad_value=box_pad)
         batch["list_obj_feat"] = _batch_padding(batch["list_obj_feat"], max_length=model_config["obj"]["num_obj"], pad_value=obj_feat_pad, return_mask=False)
-        batch["obj_mask"] = obj_mask.to(torch.bool)
+        batch["obj_mask"] = obj_mask
         return batch
 
 

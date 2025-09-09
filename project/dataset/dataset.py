@@ -5,27 +5,30 @@ import os
 from torch.utils.data import Dataset, DataLoader
 
 from utils.utils import load_json, load_npy
+from icecream import ic
+from tqdm import tqdm
 
 #----------DATASET----------
 class ViInforgraphicDataset(Dataset):
     def __init__(self, dataset_config, split):
         super().__init__()
-        ocr_feat_dir, obj_feat_dir = dataset_config["imdb_files"].split(", ")
+        ocr_feat_dir, obj_feat_dir = dataset_config["image_features"][split].split(", ")
         
         imdb_path = dataset_config["imdb_files"][split]
-        imdb = load_json(imdb_path)
+        imdb = load_npy(imdb_path)
         self.data = []
-        for item in imdb:
+        for item in tqdm(list(imdb), desc="Load IMDB File"):
             im_id = item["image_id"]
 
             #-- OCR and OBJ feat
             ocr_feat_path = os.path.join(ocr_feat_dir, f"{im_id}.npy")
             obj_feat_path = os.path.join(obj_feat_dir, f"{im_id}.npy")
-            
-            ocr_feat = load_npy(ocr_feat_path)
+
+            ocr_feat_dict = load_npy(ocr_feat_path).item()
             obj_feat = load_npy(obj_feat_path)
             
             #-- data
+
             self.data.append({
                 "id": im_id,
                 "im_path": item["image_path"],
@@ -36,7 +39,7 @@ class ViInforgraphicDataset(Dataset):
                 "obj_boxes": item["obj_normalized_boxes"],
                 "ocr_scores": item["ocr_scores"],
                 "caption_tokens": item["caption_tokens"],
-                "ocr_feat": ocr_feat,
+                "ocr_feat": ocr_feat_dict["det_features"],
                 "obj_feat": obj_feat,
                 "caption_str": item["caption_str"]
             })
@@ -62,12 +65,12 @@ def collate_fn(batch):
     list_ocr_feat = [item["ocr_feat"] for item in batch]
     list_obj_feat = [item["obj_feat"] for item in batch]
     list_captions = [item["caption_str"] for item in batch]
-
+    
     return {
         "list_id": list_id,
         "list_im_path": list_im_path,
-        "list_im_width": list_im_width,
-        "list_im_height": list_im_height,
+        "list_im_width": torch.tensor(list_im_width),
+        "list_im_height": torch.tensor(list_im_height),
         "list_ocr_tokens": list_ocr_tokens,
         "list_ocr_boxes": list_ocr_boxes,
         "list_obj_boxes": list_obj_boxes,

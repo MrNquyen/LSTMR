@@ -1,41 +1,39 @@
 
 dataset_attributes:
   image_features:
-    train:
-    - /data/npl/ViInfographicCaps/features/swintextspotter, /data/npl/ViInfographicCaps/features/faster_rcnn/features
-    val:
-    - /data/npl/ViInfographicCaps/features/swintextspotter, /data/npl/ViInfographicCaps/features/faster_rcnn/features
-    test:
-    - /data/npl/ViInfographicCaps/features/swintextspotter, /data/npl/ViInfographicCaps/features/faster_rcnn/features
+    train: /data2/npl/ViInfographicCaps/data/swintextspotter, /data2/npl/ViInfographicCaps/data/faster_rcnn/features
+    val: /data2/npl/ViInfographicCaps/data/swintextspotter, /data2/npl/ViInfographicCaps/data/faster_rcnn/features
+    test: /data2/npl/ViInfographicCaps/data/swintextspotter, /data2/npl/ViInfographicCaps/data/faster_rcnn/features
     # - open_images/detectron_fix_100/fc6/test,m4c_textvqa_ocr_en_frcn_features/test_images
   imdb_files:
-    train:
-    - /data/npl/ViInfographicCaps/data/train_imdb.npy
-    val:
-    - /data/npl/ViInfographicCaps/data/val_imdb.npy
-    test:
-    - /data/npl/ViInfographicCaps/data/test_imdb.npy
+    train: /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/train_imdb.npy
+    val: /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/val_imdb.npy
+    test: /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/test_imdb.npy
+
 model_attributes:
-  image_dir: /data/npl/ViInfographicCaps/images/images
+  image_dir: /data2/npl/ViInfographicCaps/data/images
   fasttext_bin: ./utils/fasttext/wiki.vi.bin
   # fasttext_bin: utils/fasttext/wiki.vi.bin
   hidden_size: 768
   ocr:
     dim: 256
     num_ocr: 100
-    concat_dim: 1086
+    concat_dim: 1160
   obj:
     dim: 1024
     num_obj: 100
   text_embedding:
-    common_vocab: ./data/vocab.txt
+    pretrained: /data2/npl/ViInfographicCaps/model/phobert-base
+    common_vocab: /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/vocab.txt
     max_length: 30
     return_tensors: pt
+  adjust_optimizer:
+    lr_scale: 0.1 # scale lr for finetuning modules
 optimizer_attributes:
   lr_scale: 0.1 # scale lr for finetuning modules
   params:
     eps: 1.0e-08
-    lr: 1e-4
+    lr: 1e-5
     weight_decay: 0
   type: Adam
 training_parameters:

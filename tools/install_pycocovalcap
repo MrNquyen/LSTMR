@@ -1,0 +1,4 @@
+git clone https://github.com/salaniz/pycocoevalcap
+cd pycocoevalcap
+pip install .
+pip install nltk pycocotools

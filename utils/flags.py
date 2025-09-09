@@ -3,10 +3,9 @@ class Flags:
     def __init__(self):
         self.parser = argparse.ArgumentParser()
         self.add_core_args()
-        self.update_model_args()
 
     def get_parser(self):
-        return self.parser
+        return self.parser.parse_args()
 
     def add_core_args(self):
         # TODO: Update default values

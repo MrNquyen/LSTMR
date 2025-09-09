@@ -7,7 +7,9 @@ from utils.phoc.build_phoc import build_phoc
 from utils.layers import L2Norm
 from utils.registry import registry
 from utils.vocab import PretrainedVocab, OCRVocab
-
+import numpy as np
+import fasttext
+from icecream import ic
 
 #----------Word Embedding----------
 class WordEmbedding(nn.Module):
@@ -30,10 +32,10 @@ class WordEmbedding(nn.Module):
         )
 
     def load_pretrained(self):
-        self.roberta_model_name = self.config["model_decoder"]
+        self.roberta_model_name = self.text_embedding_config["pretrained"]
         roberta_config = AutoConfig.from_pretrained(self.roberta_model_name)
-        roberta_config.num_attention_heads = self.config["mutimodal_transformer"]["nhead"]
-        roberta_config.num_hidden_layers = self.config["mutimodal_transformer"]["num_layers"]
+        # roberta_config.num_attention_heads = self.text_embedding_config["mutimodal_transformer"]["nhead"]
+        # roberta_config.num_hidden_layers = self.text_embedding_config["mutimodal_transformer"]["num_layers"]
         roberta_model = AutoModel.from_pretrained(
             self.roberta_model_name, 
             config=roberta_config
@@ -71,7 +73,7 @@ class WordEmbedding(nn.Module):
         ]
         sentences_tokens = _batch_padding_string(
             sequences=sentences_tokens,
-            max_length=self.config["max_length"],
+            max_length=self.text_embedding_config["max_length"],
             pad_value=pad_token,
             return_mask=False
         )
@@ -133,10 +135,11 @@ class ObjEmbedding(BaseEmbedding):
                 - obj_feat: (BS, M, 1024)
                     + Features for each objects 
         """
+
         return self.activation(
             self.layer_norm(
                 self.projection(
-                    self.l2norm(obj_feat)
+                    self.l2norm(obj_feat.to(self.device))
                 )
             )
         )
@@ -155,7 +158,14 @@ class OCREmbedding(BaseEmbedding):
             in_features=8,
             out_features=self.config["hidden_size"]
         )
-    
+        
+        self.build_fasttext_model()
+
+
+    def build_fasttext_model(self):
+        self.fasttext_model = fasttext.load_model(self.config["fasttext_bin"])
+
+
     # Nên để ở Dataset lúc dataloader để tiết kiệm thời gian 
     def convert_box(self, ocr_boxes):
         """
@@ -172,11 +182,11 @@ class OCREmbedding(BaseEmbedding):
         """
         new_boxes = []
         for boxes in ocr_boxes:
-            x_min, y_min, x_max, y_max = boxes[1], boxes[2], boxes[3], boxes[4]
+            x_min, y_min, x_max, y_max = boxes[0], boxes[1], boxes[2], boxes[3]
             x1, x2, x3, x4 = x_min, x_min, x_max, x_max
             y1, y2, y3, y4 = y_min, y_max, y_max, y_min
-            new_boxes.append([x1, x2, x3, x4, y1, y2, y3, y4])
-        new_boxes = torch.tensor(new_boxes).to(self.device)
+            new_boxes.append(torch.tensor([x1, x2, x3, x4, y1, y2, y3, y4]))
+        new_boxes = torch.stack(new_boxes).to(self.device)
         return new_boxes
 
 
@@ -185,12 +195,11 @@ class OCREmbedding(BaseEmbedding):
             :params words:  List of word needed to embedded
         """
         phoc_embed = [
-            
             build_phoc(token=word) 
             for word in words
         ]
         
-        return torch.tensor(phoc_embed).to(self.device)
+        return torch.tensor(np.array(phoc_embed)).to(self.device)
     
 
     def fasttext_embedding(self, words: List[str]):
@@ -204,7 +213,7 @@ class OCREmbedding(BaseEmbedding):
             ) 
             for word in words
         ]
-        return torch.tensor(fasttext_embedding).to(self.device)
+        return torch.tensor(np.array(fasttext_embedding)).to(self.device)
 
     
     def forward(
@@ -222,14 +231,17 @@ class OCREmbedding(BaseEmbedding):
             -----------
                 - ocr_boxes: (BS, N, 4)
                     + Bounding box for each ocr tokens 
-                - ocr_feat: (BS, N, 4)
+                - ocr_feat: (BS, N, 256)
                     + Features for each ocr token 
-                - ocr_token: (BS, N, 4)
+                - ocr_token: (BS, N)
                     + ocr_token for each images 
         """
         # Finding ocr main
-        fasttext_embed = torch.stack([self.fasttext_embedding(words=tokens) for tokens in ocr_tokens])
-        phoc_embed = torch.stack([self.phoc_embedding(words=tokens)  for tokens in ocr_tokens])
+        convert_ocr_boxes = torch.stack(
+            [self.convert_box(each_ocr_boxes) for each_ocr_boxes in ocr_boxes]
+        ).to(self.device)
+        fasttext_embed = torch.stack([self.fasttext_embedding(words=tokens) for tokens in ocr_tokens]).to(self.device)
+        phoc_embed = torch.stack([self.phoc_embedding(words=tokens) for tokens in ocr_tokens]).to(self.device)
         ocr_main = torch.concat(
             [
                 self.l2norm(ocr_feat),
@@ -241,7 +253,7 @@ class OCREmbedding(BaseEmbedding):
         # Finding ocr embed
         boxes_embed = self.activation(
             self.layer_norm(
-                self.projection_bbox(ocr_boxes)
+                self.projection_bbox(convert_ocr_boxes)
             )
         )
 

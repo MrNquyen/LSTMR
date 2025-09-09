@@ -1,8 +1,9 @@
 from utils.flags import Flags
 from utils.configs import Config
 from utils.utils import load_yml
-from projects.models.lstmr import LSTMR
-from utils.trainer import Trainer
+from project.models.lstmr import LSTMR
+# from utils.trainer import Trainer
+from utils.trainer_modify import Trainer
 
 
 if __name__=="__main__":
@@ -12,6 +13,7 @@ if __name__=="__main__":
 
     # -- Get device
     # print(args)
+    config = args.config
     device = args.device
 
     # -- Get config
@@ -23,4 +25,4 @@ if __name__=="__main__":
     if args.run_type=="train":
         trainer.train()
     elif args.run_type=="inference":
-        trainer.test()
+        trainer.inference(mode="test", save_dir="/data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/save/results")

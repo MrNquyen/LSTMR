@@ -2,6 +2,7 @@ import torch
 from torch import nn
 from utils.registry import registry
 import numpy as np
+from icecream import ic
 
 class Base(nn.Module):
     def __init__(self):
@@ -59,7 +60,7 @@ class DistanceRelation(Base):
         p1 = torch.tensor(p1).to(self.device)
         p2 = torch.tensor(p2).to(self.device)
         distance = torch.norm(p1 - p2, p=2)  # L2 norm
-        return distance
+        return distance.unsqueeze(-1)
 
 
     def forward(self, b1, b2):
@@ -152,26 +153,26 @@ class AngleRelation(Base):
         center_2 = ((x2_min + x2_max) / 2, (y2_min + y2_max) / 2)
         
         #-- Calculate angle
-        line = np.abs(np.array(center_2) - np.array(center_1))
+        line = torch.abs(torch.tensor(center_2) - torch.tensor(center_1))
         angle = torch.atan2(line[1], line[0])
         degree = angle * 180.0 / torch.pi
 
         if 22.5 < degree <= 67.5:
-            return 1
+            return torch.tensor([1])
         elif 67.5 < degree <= 112.5:
-            return 2
+            return torch.tensor([2])
         elif 112.5 < degree <= 157.5:
-            return 3
+            return torch.tensor([3])
         elif 157.5 < degree <= 202.5:
-            return 4
+            return torch.tensor([4])
         elif 202.5 < degree <= 247.5:
-            return 5
+            return torch.tensor([5])
         elif 247.5 < degree <= 292.5:
-            return 6
+            return torch.tensor([6])
         elif 292.5 < degree <= 337.5:
-            return 7
+            return torch.tensor([7])
         elif 337.5 < degree or degree <= 22.5:
-            return 8
+            return torch.tensor([8])
         
 
 
@@ -197,11 +198,17 @@ class GeoRelationship(Base):
         iou_relation_embed = [self.iou_relation(target, ocr_box) for ocr_box in ocr_boxes]
         angle_relation_embed = [self.angle_relation(target, ocr_box) for ocr_box in ocr_boxes]
 
+        # ic(torch.stack(hw_relation_embed).shape)
+        # ic(torch.stack(dis_relation_embed).shape)
+        # ic(torch.stack(iou_relation_embed).shape)
+        # ic(torch.stack(angle_relation_embed).shape)
+        # ic(angle_relation_embed[0].shape)
+
         relation_embed = torch.concat([
-            torch.stack(hw_relation_embed),
-            torch.stack(dis_relation_embed),
-            torch.stack(iou_relation_embed),
-            torch.tensor(angle_relation_embed),
+            torch.stack(hw_relation_embed).to(self.device),
+            torch.stack(dis_relation_embed).to(self.device),
+            torch.stack(iou_relation_embed).to(self.device),
+            torch.stack(angle_relation_embed).to(self.device),
         ], dim=-1).to(self.device)
         
         relation_embed = self.activation(

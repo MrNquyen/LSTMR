@@ -9,6 +9,7 @@ from utils.registry import registry
 from utils.module_utils import _batch_gather
 from torch.nn import functional as F
 from icecream import ic
+import math
 
 
 class LSTMR(nn.Module):
@@ -194,7 +195,8 @@ class LSTMR(nn.Module):
                     "prev_word_inds": torch.flatten(prev_word_inds),
                     "vocab_size": self.num_choices,
                     "ocr_feat": ocr_embed,
-                    "ocr_boxes": batch["list_ocr_boxes"]
+                    "ocr_boxes": batch["list_ocr_boxes"],
+                    "ocr_mask": ocr_mask
                 }
                 score = self.forward_output(results=results) # BS, num_common + num_ocr, 1
                 scores[:, step, :] = score.permute(0, 2, 1).squeeze(1) # BS, 1, num_common + num_ocr
@@ -222,7 +224,8 @@ class LSTMR(nn.Module):
                     "prev_word_inds": torch.flatten(prev_inds[:, step-1]), # Previous idx
                     "vocab_size": self.num_choices,
                     "ocr_feat": ocr_embed,
-                    "ocr_boxes": batch["list_ocr_boxes"]
+                    "ocr_boxes": batch["list_ocr_boxes"],
+                    "ocr_mask": ocr_mask
                 }
                 score = self.forward_output(results=results) # BS, num_common + num_ocr, 1
                 scores[:, step, :] = score.permute(0, 2, 1).squeeze(1) # BS, 1, num_common + num_ocr
@@ -249,6 +252,8 @@ class LSTMR(nn.Module):
         common_vocab_size = results["vocab_size"]
         ocr_feat = results["ocr_feat"]
         ocr_boxes = results["ocr_boxes"] # BS, num_ocr, 4
+        ocr_mask = results["ocr_mask"]
+
         num_ocr = ocr_boxes.size(1)
 
         #~ Leverage scores
@@ -289,17 +294,25 @@ class LSTMR(nn.Module):
 
             #~~ Calculate common vocab scores
         fixed_scores = self.classifier(hidden_state).unsqueeze(-1) #  BS, num_vocab, 1
-        scores = self.ptr_net(
+        ocr_scores = self.ptr_net(
             hidden_state=hidden_state,
             augmented_features=augmented_features, 
-            common_scores=fixed_scores,
+            attention_mask=ocr_mask,
         )
-        return scores
+
+            #~~ Classify scores
+        scores = torch.concat([
+            fixed_scores,
+            ocr_scores
+        ], dim=1)
+        return scores # BS, num_common + num_ocr, 1
+
 
 # ----- RELATION AWARE POINTER NETWORK -----
 class OcrPtrNet(nn.Module):
     def __init__(self, hidden_size):
         super().__init__()
+        self.hidden_size = hidden_size
         self.linear_hidden_state = nn.Linear(
             in_features=hidden_size,
             out_features=hidden_size
@@ -310,7 +323,7 @@ class OcrPtrNet(nn.Module):
             out_features=hidden_size
         )
 
-    def forward(self, hidden_state, augmented_features, common_scores):
+    def forward(self, hidden_state, augmented_features, attention_mask):
         """
             Calculate scores for ocr tokens and common word 
             at each timestep using bilinear pooling operation
@@ -332,16 +345,17 @@ class OcrPtrNet(nn.Module):
         linear_pooling_ht = self.linear_hidden_state(hidden_state).unsqueeze(-1) # BS, hidden_size, 1
         linear_pooling_aug_feat = self.linear_augmented_feat(augmented_features) # BS, num_ocr, hidden_size
 
+        extended_attention_mask = (1.0 - attention_mask) * -10000.0
+        extended_attention_mask = extended_attention_mask.unsqueeze(-1)
+
         ocr_scores = torch.bmm(
             input=linear_pooling_aug_feat,
             mat2=linear_pooling_ht
         ) # BS, num_ocr, 1
 
-        #-- Maximum probabilities scores
-        scores = F.sigmoid(torch.concat([
-            common_scores,
-            ocr_scores
-        ], dim=1))
-        return scores # BS, num_common + num_ocr, 1 
+        ocr_scores = ocr_scores / math.sqrt(self.hidden_size)
+        ocr_scores = ocr_scores + extended_attention_mask
+        return ocr_scores
+ 
 
 
