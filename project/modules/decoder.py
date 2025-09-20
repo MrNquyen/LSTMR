@@ -51,13 +51,14 @@ class Decoder(DecoderBase):
         #-- Fuse OCR and Obj features with mean
         fuse_features = torch.mean(input_features, dim=1)
 
+        # ic(fuse_features)
         #-- Calculate attention scores
         attention_scores = self.attention(
             prev_hidden_state=prev_hidden_state,
             input_features=input_features,
             mask=mask
         )
-
+        # ic(attention_scores)
         #==== DEBUG ===-
         # debug_scores = attention_scores.squeeze(-1)  # [B, L]
         # for b in range(mask.size(0)):

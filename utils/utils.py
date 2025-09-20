@@ -1,4 +1,5 @@
 import json
+import torch
 import numpy as np
 import yaml
 
@@ -34,3 +35,10 @@ def load_yml(path):
     with open(path, 'r') as file:
         config = yaml.safe_load(file)
         return config
+    
+#---- Check where nan
+def count_nan(tensor):
+    nan_mask = torch.isnan(tensor)  # Boolean mask where values are NaN
+    nan_count = nan_mask.sum().item()
+    # nan_indices = nan_mask.nonzero(as_tuple=False)
+    return nan_count

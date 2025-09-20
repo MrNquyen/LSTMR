@@ -2,14 +2,15 @@ import torch
 import warnings
 import os
 import numpy as np
+import torch.nn.functional as F
 
 from torch import nn
 from tqdm import tqdm
-import torch.nn.functional as F
+from torch.optim.lr_scheduler import LambdaLR
 from utils.configs import Config
 from project.dataset.dataset import get_loader
 from utils.vocab import OCRVocab
-from utils.model_utils import get_optimizer_parameters
+from utils.model_utils import get_optimizer_parameters, lr_lambda_update
 from utils.module_utils import _batch_padding, _batch_padding_string
 from utils.logger import Logger
 from utils.metrics import metric_calculate
@@ -68,6 +69,7 @@ class Trainer():
         self.max_epochs = self.config.config_training["epochs"]
         self.batch_size = self.config.config_training["batch_size"]
         self.max_iterations = self.config.config_training["max_iterations"]
+        self.snapshot_interval = self.config.config_training["snapshot_interval"]
         self.current_iteration = 0
         self.current_epoch = 0
 
@@ -90,10 +92,11 @@ class Trainer():
     def build_scheduler(self, optimizer, config_lr_scheduler):
         if not config_lr_scheduler["status"]:
             return None
-        lr_scheduler = torch.optim.lr_scheduler.StepLR(
+        scheduler_func = lambda x: lr_lambda_update(x, config_lr_scheduler)
+            
+        lr_scheduler = torch.optim.lr_scheduler.LambdaLR(
             optimizer=optimizer,
-            step_size=config_lr_scheduler["step_size"],
-            gamma=config_lr_scheduler["gamma"]
+            lr_lambda=scheduler_func
         )
         return lr_scheduler
 
@@ -101,6 +104,7 @@ class Trainer():
     def build_loss(self):
         pad_idx = self.model.word_embedding.common_vocab.get_pad_index()
         loss_fn = nn.CrossEntropyLoss(ignore_index=pad_idx)
+        # loss_fn = nn.CrossEntropyLoss()
         return loss_fn
 
 
@@ -201,12 +205,15 @@ class Trainer():
         ocr_feat_pad = torch.zeros((1, dim_ocr))
         # ic(type(batch["list_ocr_boxes"][0]))
 
+        ic(len(batch["list_ocr_feat"]))
         batch["list_ocr_boxes"], ocr_mask = _batch_padding(batch["list_ocr_boxes"], max_length=model_config["ocr"]["num_ocr"], pad_value=box_pad)
         batch["list_ocr_feat"] = _batch_padding(batch["list_ocr_feat"], max_length=model_config["ocr"]["num_ocr"], pad_value=ocr_feat_pad, return_mask=False)
         batch["list_ocr_tokens"] = _batch_padding_string(batch["list_ocr_tokens"], max_length=model_config["ocr"]["num_ocr"], pad_value="<pad>", return_mask=False)
         batch["ocr_mask"] = ocr_mask
+        ic(batch["list_ocr_feat"].shape)
 
         # Padding obj
+        # ic(f"Preprocessing {batch['list_obj_feat']}")
         obj_feat_pad = torch.zeros((1, dim_obj))
         batch["list_obj_boxes"], obj_mask = _batch_padding(batch["list_obj_boxes"], max_length=model_config["obj"]["num_obj"], pad_value=box_pad)
         batch["list_obj_feat"] = _batch_padding(batch["list_obj_feat"], max_length=model_config["obj"]["num_obj"], pad_value=obj_feat_pad, return_mask=False)
@@ -240,32 +247,52 @@ class Trainer():
                     list_captions, list_ocr_tokens
                 ).to(self.device)
                 loss = self._extract_loss(scores_output, targets)
+
+
+                ################### DEBUG ###############
+                # ic(scores_output.shape, targets.shape)
+                # ic(scores_output)
+                # ic(targets)
+                ic(loss)
                 self._backward(loss)
-                
+
+                # Save
+                save_dir = "/data2/npl/ViInfographicCaps/trash"
+                np.save(os.path.join(save_dir, "scores_output.npy"), scores_output.cpu().detach().numpy())
+                np.save(os.path.join(save_dir, "targets.npy"), targets.cpu().numpy())
+                ################### DEBUG ###############
+
                 if self.current_iteration > self.max_iterations:
                     break
 
-            self.save_model(
-                model=self.model,
-                loss=loss,
-                optimizer=self.optimizer,
-                epoch=self.current_epoch, 
-                metric_score=None,
-                use_name="last"
-            )
-            
-            if self.current_epoch % 2 == 0:
-                _, _, val_final_scores, loss = self.evaluate(epoch_id=self.current_epoch, split="val")
-                # _, _, final_scores = self.evaluate(epoch_id=self.current_epoch, split="test")
-                if val_final_scores["CIDEr"] > best_scores:
-                    best_scores = val_final_scores["CIDEr"]
+                if self.current_iteration % self.snapshot_interval == 0:
+                    _, _, val_final_scores, loss = self.evaluate(epoch_id=self.current_iteration, split="val")
+                    # _, _, final_scores = self.evaluate(epoch_id=self.current_epoch, split="test")
+                    if val_final_scores["CIDEr"] > best_scores:
+                        best_scores = val_final_scores["CIDEr"]
+                        self.save_model(
+                            model=self.model,
+                            loss=loss,
+                            optimizer=self.optimizer,
+                            epoch=self.current_epoch, 
+                            metric_score=best_scores,
+                            use_name="best"
+                        )
                     self.save_model(
                         model=self.model,
                         loss=loss,
                         optimizer=self.optimizer,
                         epoch=self.current_epoch, 
                         metric_score=best_scores,
-                        use_name="best"
+                        use_name=self.current_iteration
+                    )
+                    self.save_model(
+                        model=self.model,
+                        loss=loss,
+                        optimizer=self.optimizer,
+                        epoch=self.current_epoch, 
+                        metric_score=best_scores,
+                        use_name="last"
                     )
                     
     
@@ -295,8 +322,12 @@ class Trainer():
                 targets = self.model.word_embedding.get_prev_inds(
                     list_captions, list_ocr_tokens
                 ).to(self.device)
+                # ic(scores_output)
+                # ic(targets)
                 loss = self._extract_loss(scores_output, targets)
-                losses.append(loss)
+                loss_scalar = loss.detach().cpu().item()
+                losses.append(loss_scalar)
+                
                 #~ Metrics calculation
                 if not epoch_id==None:
                     self.writer_evaluation.LOG_INFO(f"Logging at epoch {epoch_id}")
@@ -309,6 +340,7 @@ class Trainer():
             # Calculate Metrics
             # ic(ref, hypo)
             final_scores = metric_calculate(ref, hypo)
+            # ic(losses)
             avg_loss = sum(losses) / len(losses) 
             self.writer_evaluation.LOG_INFO(f"|| Metrics Calculation || {split} split || epoch: {epoch_id} || loss: {avg_loss}")
             self.writer_evaluation.LOG_INFO(f"Final scores:\n{final_scores}")

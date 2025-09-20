@@ -6,6 +6,7 @@ from project.modules.multimodal_embedding import OCREmbedding, ObjEmbedding, Wor
 from project.modules.geo_relationship_batch_processing import GeoRelationship
 from project.modules.decoder import Decoder
 from utils.registry import registry
+from utils.utils import count_nan
 from utils.module_utils import _batch_gather
 from torch.nn import functional as F
 from icecream import ic
@@ -132,12 +133,19 @@ class LSTMR(nn.Module):
             batch
         ):
 
+        # ic(batch["list_obj_feat"])
         obj_embed = self.obj_embedding(batch["list_obj_feat"])
         ocr_embed = self.ocr_embedding(
             ocr_feat=batch["list_ocr_feat"].to(self.device),
             ocr_boxes=batch["list_ocr_boxes"],
             ocr_tokens=batch["list_ocr_tokens"]
         )
+
+        # ic(batch["list_obj_feat"])
+        # ic(batch["list_ocr_feat"])
+        # ic(obj_embed)
+        # ic(ocr_embed)
+
         ocr_mask = batch["ocr_mask"]
         obj_mask = batch["obj_mask"]
           
@@ -190,6 +198,7 @@ class LSTMR(nn.Module):
                 )
                 prev_h = cur_h
                 prev_c = cur_c
+                
                 results = {
                     "hidden_state": cur_h,
                     "prev_word_inds": torch.flatten(prev_word_inds),
@@ -201,6 +210,7 @@ class LSTMR(nn.Module):
                 score = self.forward_output(results=results) # BS, num_common + num_ocr, 1
                 scores[:, step, :] = score.permute(0, 2, 1).squeeze(1) # BS, 1, num_common + num_ocr
             return scores, caption_inds
+            
         else:
             # with torch.no_grad():
             for step in range(1, self.max_length, 1):
@@ -208,6 +218,7 @@ class LSTMR(nn.Module):
                     x=vocab_embed,
                     inds=prev_inds
                 )[:, step-1, :]
+
                 cur_h, cur_c = self.decoder(
                     obj_features=obj_embed,
                     ocr_features=ocr_embed,
@@ -219,6 +230,7 @@ class LSTMR(nn.Module):
                 )
                 prev_h = cur_h
                 prev_c = cur_c
+
                 results = {
                     "hidden_state": cur_h,
                     "prev_word_inds": torch.flatten(prev_inds[:, step-1]), # Previous idx

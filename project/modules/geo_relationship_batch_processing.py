@@ -1,6 +1,7 @@
 import torch
 from torch import nn
 from utils.registry import registry
+from utils.utils import count_nan
 import numpy as np
 from icecream import ic
 
@@ -121,17 +122,18 @@ class IoURelation(Base):
         xi_min, yi_min, xi_max, yi_max = intersection[:, 0], intersection[:, 1], intersection[:, 2], intersection[:, 3]
             
         #-- Area
-        b1_area = (x1_max - x1_min) * (y1_max - y1_min)
-        b2_area = (x2_max - x2_min) * (y2_max - y2_min)
-        intersection_area = (xi_max - xi_min) * (yi_max - yi_min)
+        eps = 1e-6  # small constant to avoid NaN
+        b1_area = (x1_max - x1_min).clamp(min=0) * (y1_max - y1_min).clamp(min=0)
+        b2_area = (x2_max - x2_min).clamp(min=0) * (y2_max - y2_min).clamp(min=0)
+        intersection_area = (xi_max - xi_min).clamp(min=0) * (yi_max - yi_min).clamp(min=0)
         union_area = b1_area + b2_area - intersection_area
 
-        #-- cal IoU
-        iou = intersection_area / union_area
-        iou_on_box1 = intersection_area / b1_area
-        iou_on_box2 = intersection_area / b2_area
-        
-        return torch.stack([iou, iou_on_box1, iou_on_box2], dim=-1).to(self.device) # BS, 3
+        # -- Safe IoU calculations
+        iou = intersection_area / (union_area + eps)
+        iou_on_box1 = intersection_area / (b1_area + eps)
+        iou_on_box2 = intersection_area / (b2_area + eps)
+
+        return torch.stack([iou, iou_on_box1, iou_on_box2], dim=-1).to(self.device)  # BS, 3
 
 
 class AngleRelation(Base):

@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 from typing import List
-from transformers import AutoModel, AutoTokenizer, AutoConfig
+from transformers import AutoModel, AutoTokenizer, AutoConfig, PreTrainedModel
 from utils.module_utils import fasttext_embedding_module, _batch_padding_string
 from utils.phoc.build_phoc import build_phoc
 from utils.layers import L2Norm
@@ -12,6 +12,33 @@ import fasttext
 from icecream import ic
 
 #----------Word Embedding----------
+# class PhoBertEmbedding(nn.Module):
+#         def __init__(self):
+#         super().__init__()
+#         #-- Load config and args
+#         self.model_config = registry.get_config("model_attributes")
+#         self.text_embedding_config = self.model_config["text_embedding"]
+#         self.device = registry.get_args("device")
+#         #-- Load pretrained model (phobert-base)
+#         self.load_pretrained()
+
+#         #-- Load params
+#         self.max_length = self.text_embedding_config["max_length"]
+
+#     def load_pretrained(self):
+#         self.roberta_model_name = self.text_embedding_config["pretrained"]
+#         roberta_config = AutoConfig.from_pretrained(self.roberta_model_name)
+#         roberta_model = AutoModel.from_pretrained(
+#             self.roberta_model_name, 
+#             config=roberta_config
+#         )
+#         roberta_model.gradient_checkpointing_enable()
+#         self.model = roberta_model
+#         self.tokenizer = AutoTokenizer.from_pretrained(self.roberta_model_name)
+        
+#     def get_prev_inds(self, sentences, ocr_tokens):
+        
+
 class WordEmbedding(nn.Module):
     def __init__(self):
         super().__init__()
@@ -44,7 +71,6 @@ class WordEmbedding(nn.Module):
         self.model = roberta_model
         self.tokenizer = AutoTokenizer.from_pretrained(self.roberta_model_name)
         
-
     def get_prev_inds(self, sentences, ocr_tokens):
         """
             Use to get inds of each token of the caption sentences
@@ -71,16 +97,17 @@ class WordEmbedding(nn.Module):
             sentence.split(" ")
             for sentence in sentences
         ]
+        sentences_tokens = [
+            [start_token] + sentence_tokens[:self.max_length - 2] + [end_token]
+            for sentence_tokens in sentences_tokens
+        ]
+        # Padding after </s>
         sentences_tokens = _batch_padding_string(
             sequences=sentences_tokens,
             max_length=self.text_embedding_config["max_length"],
             pad_value=pad_token,
             return_mask=False
         )
-        sentences_tokens = [
-            [start_token] + sentence_tokens[:self.max_length - 2] + [end_token]
-            for sentence_tokens in sentences_tokens
-        ]
 
         # Get prev_inds
         prev_ids = [
@@ -95,6 +122,34 @@ class WordEmbedding(nn.Module):
         ]
         return torch.tensor(prev_ids).to(self.device)
 
+
+class TextPretrained(PreTrainedModel):
+    def __init__(self, config):
+        self.model_config = registry.get_config("model_attributes")
+        self.text_embedding_config = self.model_config["text_embedding"]
+        self.device = registry.get_args("device")
+
+        self.model_name = self.text_embedding_config["pretrained"]
+        self.max_length = self.text_embedding_config["max_length"]
+        self.pretrained_config = AutoConfig.from_pretrained(self.model_name)
+        super().__init__(pretrained_config)
+        self.load_pretrained()
+
+    def load_pretrained(self):
+        self.model_name = self.text_embedding_config["pretrained"]
+        self.model = AutoModel.from_pretrained(
+            self.model_name, 
+            config=self.pretrained_config
+        )
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        self.model.gradient_checkpointing_enable()
+        self.init_weights()
+    
+    def tokenize(self, captions):
+        pass
+
+    def get_vocab_size(self):
+        return self.tokenizer.vocab_size
 
 
 #----------Embedding----------
@@ -135,7 +190,6 @@ class ObjEmbedding(BaseEmbedding):
                 - obj_feat: (BS, M, 1024)
                     + Features for each objects 
         """
-
         return self.activation(
             self.layer_norm(
                 self.projection(
@@ -237,11 +291,16 @@ class OCREmbedding(BaseEmbedding):
                     + ocr_token for each images 
         """
         # Finding ocr main
+        # ic(self.projection_feat.weight.data)
+
         convert_ocr_boxes = torch.stack(
             [self.convert_box(each_ocr_boxes) for each_ocr_boxes in ocr_boxes]
         ).to(self.device)
         fasttext_embed = torch.stack([self.fasttext_embedding(words=tokens) for tokens in ocr_tokens]).to(self.device)
         phoc_embed = torch.stack([self.phoc_embedding(words=tokens) for tokens in ocr_tokens]).to(self.device)
+        ic(ocr_feat.shape)
+        ic(fasttext_embed.shape)
+        ic(phoc_embed.shape)
         ocr_main = torch.concat(
             [
                 self.l2norm(ocr_feat),
