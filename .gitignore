@@ -3,3 +3,8 @@ test.ipynb
 lstmr.out
 utils/pycocoevalcap
 utils/fasttext/wiki.vi.bin
+__pycache__
+build
+save
+yolov8x-oiv7.pt
+/data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/yolov8x-oiv7.pt

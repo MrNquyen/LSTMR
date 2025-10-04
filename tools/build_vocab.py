@@ -7,8 +7,6 @@ from utils.utils import load_json, save_vocab
 
 TRAIN_PATH="./data/train.json"
 SAVE_PATH = "./data/vocab.txt"
-# VAL_PATH="./data/val.json"
-# TEST_PATH="./data/test.json"
 
 if __name__=="__main__":
     train_json = load_json(TRAIN_PATH)

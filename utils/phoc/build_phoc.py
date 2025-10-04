@@ -1,5 +1,6 @@
 import numpy as np
 
+# from .cphoc_vn import build_phoc as _build_phoc_raw
 from .cphoc import build_phoc as _build_phoc_raw
 
 

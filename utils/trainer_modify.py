@@ -14,7 +14,7 @@ from utils.model_utils import get_optimizer_parameters, lr_lambda_update
 from utils.module_utils import _batch_padding, _batch_padding_string
 from utils.logger import Logger
 from utils.metrics import metric_calculate
-from utils.utils import save_json
+from utils.utils import save_json, count_nan
 from utils.registry import registry
 from project.models.lstmr_modify import LSTMR
 from icecream import ic
@@ -167,17 +167,24 @@ class Trainer():
         """
         self.optimizer.zero_grad()
         loss.backward()
-
+        self._gradient_clipping()
         self.optimizer.step()
         self._run_scheduler()
     
+    def _gradient_clipping(self):
+        nn.utils.clip_grad_norm_(self.model.parameters(), max_norm=1.0)
 
     def _run_scheduler(self):
         """
             Learning rate scheduler
         """
-        # self.lr_scheduler.step(self.current_iteration)
-        self.lr_scheduler.step()
+        self.lr_scheduler.step(self.current_iteration)
+        # self.lr_scheduler.step()
+        # debug: log LRs (every 1000 steps or so)
+        if self.current_iteration % 1000 == 0:
+            lrs = [pg['lr'] for pg in self.optimizer.param_groups]
+            self.writer.LOG_INFO(f"Iteration {self.current_iteration} LRs: {lrs}")
+
 
     #---- MODE
     def match_device(self, batch):
@@ -205,12 +212,10 @@ class Trainer():
         ocr_feat_pad = torch.zeros((1, dim_ocr))
         # ic(type(batch["list_ocr_boxes"][0]))
 
-        ic(len(batch["list_ocr_feat"]))
         batch["list_ocr_boxes"], ocr_mask = _batch_padding(batch["list_ocr_boxes"], max_length=model_config["ocr"]["num_ocr"], pad_value=box_pad)
         batch["list_ocr_feat"] = _batch_padding(batch["list_ocr_feat"], max_length=model_config["ocr"]["num_ocr"], pad_value=ocr_feat_pad, return_mask=False)
         batch["list_ocr_tokens"] = _batch_padding_string(batch["list_ocr_tokens"], max_length=model_config["ocr"]["num_ocr"], pad_value="<pad>", return_mask=False)
         batch["ocr_mask"] = ocr_mask
-        ic(batch["list_ocr_feat"].shape)
 
         # Padding obj
         # ic(f"Preprocessing {batch['list_obj_feat']}")
@@ -234,7 +239,7 @@ class Trainer():
             self.current_epoch += 1
             self.writer.LOG_INFO(f"Training epoch: {self.current_epoch}")
             for batch_id, batch in tqdm(enumerate(self.train_loader), desc="Iterating through train loader"):
-                self.writer.LOG_INFO(f"Training batch: {batch_id + 1}")
+                self.writer.LOG_INFO(f"Training batch: {batch_id + 1} - Iteration: {self.current_iteration}")
                 batch = self.preprocess_batch(batch)
                 batch = self.match_device(batch)
                 list_ocr_tokens = batch["list_ocr_tokens"]
@@ -253,15 +258,7 @@ class Trainer():
                 # ic(scores_output.shape, targets.shape)
                 # ic(scores_output)
                 # ic(targets)
-                ic(loss)
                 self._backward(loss)
-
-                # Save
-                save_dir = "/data2/npl/ViInfographicCaps/trash"
-                np.save(os.path.join(save_dir, "scores_output.npy"), scores_output.cpu().detach().numpy())
-                np.save(os.path.join(save_dir, "targets.npy"), targets.cpu().numpy())
-                ################### DEBUG ###############
-
                 if self.current_iteration > self.max_iterations:
                     break
 
@@ -274,7 +271,9 @@ class Trainer():
                             model=self.model,
                             loss=loss,
                             optimizer=self.optimizer,
+                            lr_scheduler=self.lr_scheduler,
                             epoch=self.current_epoch, 
+                            iteration=self.current_iteration,
                             metric_score=best_scores,
                             use_name="best"
                         )
@@ -282,7 +281,9 @@ class Trainer():
                         model=self.model,
                         loss=loss,
                         optimizer=self.optimizer,
+                        lr_scheduler=self.lr_scheduler,
                         epoch=self.current_epoch, 
+                        iteration=self.current_iteration,
                         metric_score=best_scores,
                         use_name=self.current_iteration
                     )
@@ -290,7 +291,9 @@ class Trainer():
                         model=self.model,
                         loss=loss,
                         optimizer=self.optimizer,
+                        lr_scheduler=self.lr_scheduler,
                         epoch=self.current_epoch, 
+                        iteration=self.current_iteration,
                         metric_score=best_scores,
                         use_name="last"
                     )
@@ -326,6 +329,7 @@ class Trainer():
                 # ic(targets)
                 loss = self._extract_loss(scores_output, targets)
                 loss_scalar = loss.detach().cpu().item()
+                ic(loss_scalar)
                 losses.append(loss_scalar)
                 
                 #~ Metrics calculation
@@ -375,7 +379,7 @@ class Trainer():
         return hypo, ref
 
     #---- FINISH
-    def save_model(self, model, loss, optimizer, epoch, metric_score, use_name=""):
+    def save_model(self, model, loss, optimizer, lr_scheduler, epoch, iteration, metric_score, use_name=""):
         if not os.path.exists(self.args.save_dir):
             self.writer.LOG_INFO("Save dir not exist")
             os.makedirs(self.args.save_dir, exist_ok=True)
@@ -385,8 +389,10 @@ class Trainer():
 
         torch.save({
             'epoch': epoch,
+            "iteration": iteration,
             'model_state_dict': model.state_dict(),
             'optimizer_state_dict': optimizer.state_dict(),
+            'scheduler_state_dict': getattr(lr_scheduler, 'state_dict', lambda: None)(),
             'loss': loss,
             "metric_score": metric_score
         }, model_path)
@@ -397,7 +403,27 @@ class Trainer():
         checkpoint = torch.load(model_path, map_location=self.device, weights_only=False)
         self.model.load_state_dict(checkpoint['model_state_dict'])
         self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-        self.current_epoch = checkpoint['epoch']
+
+        #### DEBUG
+        for param_group in self.optimizer.param_groups:
+            ic(param_group['lr'])
+        #### DEBUG
+
+        self.current_epoch = checkpoint.get('epoch', 0)
+        self.current_iteration = checkpoint.get("iteration", 600)
+        
+        if self.lr_scheduler is not None and 'scheduler_state_dict' in checkpoint and checkpoint['scheduler_state_dict'] is not None:
+            try:
+                self.lr_scheduler.load_state_dict(checkpoint['scheduler_state_dict'])
+            except Exception as e:
+                # fallback: advance scheduler to current_iteration
+                self.writer.LOG_INFO("Warning: failed to load scheduler state; advancing scheduler to iteration")
+                self.lr_scheduler.step(self.current_iteration)
+        else:
+            # ensure scheduler is aligned with optimizer param_group's lrs
+            if self.lr_scheduler is not None:
+                self.lr_scheduler.step(self.current_iteration)
+
         loss = checkpoint['loss']
         self.writer.LOG_INFO(f"=== Load model at epoch: {self.current_epoch} || loss: {loss} ===")
 
@@ -410,17 +436,28 @@ class Trainer():
         common_vocab = self.model.word_embedding.common_vocab
         vocab_size = common_vocab.get_size()
         ocr_vocab_object = OCRVocab(ocr_tokens=ocr_tokens)
-        captions_pred = [
-            " ".join([
+        # captions_pred = [
+        #     " ".join([
+        #         common_vocab.get_idx_word(idx.item())
+        #         if idx < vocab_size
+        #         else ocr_vocab_object[i].get_idx_word(idx.item() - vocab_size)
+        #         for idx in item_pred_inds
+        #     ])
+        #     for i, item_pred_inds in enumerate(pred_inds)
+        # ]
+        # return captions_pred # BS, 
+        captions_pred = []
+        for i, item_pred_inds in enumerate(pred_inds):
+            get_ocr = ocr_vocab_object[i].get_idx_word
+            words = (
                 common_vocab.get_idx_word(idx.item())
                 if idx < vocab_size
-                else ocr_vocab_object[i].get_idx_word(idx.item() - vocab_size)
+                else get_ocr(idx.item() - vocab_size)
                 for idx in item_pred_inds
-            ])
-            for i, item_pred_inds in enumerate(pred_inds)
-        ]
-        return captions_pred # BS, 
-    
+            )
+            captions_pred.append(" ".join(words))
+        return captions_pred 
+        
 
     def save_inference(self, hypo, ref, save_dir, name=""):
         save_path = os.path.join(save_dir, f"{name}_reference")

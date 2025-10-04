@@ -1,0 +1,728 @@
+/data2/npl/ViInfographicCaps/venv/global_venv/lib/python3.9/site-packages/transformers/utils/hub.py:111: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+2025-08-13 00:21 - INFO - === START BUILDING ===
+2025-08-13 00:21 - INFO - === Build model params ===
+2025-08-13 00:21 - INFO - === Build writer ===
+2025-08-13 00:21 - INFO - === Build model layers ===
+2025-08-13 00:22 - INFO - === Build model outputs ===
+2025-08-13 00:22 - INFO - === Build adjust learning rate ===
+Load IMDB File:   0%|          | 0/16021 [00:00<?, ?it/s]Load IMDB File:   0%|          | 69/16021 [00:00<00:23, 689.50it/s]Load IMDB File:   1%|          | 188/16021 [00:00<00:16, 978.22it/s]Load IMDB File:   2%|▏         | 309/16021 [00:00<00:14, 1079.40it/s]Load IMDB File:   3%|▎         | 427/16021 [00:00<00:13, 1118.23it/s]Load IMDB File:   3%|▎         | 556/16021 [00:00<00:13, 1177.19it/s]Load IMDB File:   4%|▍         | 674/16021 [00:00<00:15, 970.42it/s] Load IMDB File:   5%|▍         | 777/16021 [00:00<00:16, 906.80it/s]Load IMDB File:   5%|▌         | 872/16021 [00:00<00:18, 827.33it/s]Load IMDB File:   6%|▌         | 965/16021 [00:01<00:17, 852.72it/s]Load IMDB File:   7%|▋         | 1058/16021 [00:01<00:17, 872.99it/s]Load IMDB File:   7%|▋         | 1148/16021 [00:01<00:18, 790.33it/s]Load IMDB File:   8%|▊         | 1232/16021 [00:01<00:18, 802.39it/s]Load IMDB File:   8%|▊         | 1321/16021 [00:01<00:17, 825.71it/s]Load IMDB File:   9%|▉         | 1408/16021 [00:01<00:17, 836.02it/s]Load IMDB File:   9%|▉         | 1503/16021 [00:01<00:16, 864.78it/s]Load IMDB File:  10%|▉         | 1594/16021 [00:01<00:16, 875.98it/s]Load IMDB File:  11%|█         | 1696/16021 [00:01<00:15, 916.90it/s]Load IMDB File:  11%|█         | 1789/16021 [00:01<00:15, 895.44it/s]Load IMDB File:  12%|█▏        | 1883/16021 [00:02<00:15, 906.09it/s]Load IMDB File:  12%|█▏        | 1983/16021 [00:02<00:15, 931.20it/s]Load IMDB File:  13%|█▎        | 2077/16021 [00:02<00:15, 914.56it/s]Load IMDB File:  14%|█▎        | 2169/16021 [00:02<00:15, 883.85it/s]Load IMDB File:  14%|█▍        | 2258/16021 [00:02<00:15, 881.37it/s]Load IMDB File:  15%|█▍        | 2353/16021 [00:02<00:15, 900.65it/s]Load IMDB File:  15%|█▌        | 2444/16021 [00:02<00:15, 902.29it/s]Load IMDB File:  16%|█▌        | 2543/16021 [00:02<00:14, 925.14it/s]Load IMDB File:  16%|█▋        | 2638/16021 [00:02<00:14, 929.96it/s]Load IMDB File:  17%|█▋        | 2732/16021 [00:03<00:14, 896.44it/s]Load IMDB File:  18%|█▊        | 2822/16021 [00:03<00:15, 856.97it/s]Load IMDB File:  18%|█▊        | 2909/16021 [00:03<00:15, 860.19it/s]Load IMDB File:  19%|█▉        | 3009/16021 [00:03<00:14, 899.21it/s]Load IMDB File:  19%|█▉        | 3117/16021 [00:03<00:13, 949.20it/s]Load IMDB File:  20%|██        | 3213/16021 [00:03<00:14, 884.16it/s]Load IMDB File:  21%|██        | 3304/16021 [00:03<00:14, 890.38it/s]Load IMDB File:  21%|██        | 3396/16021 [00:03<00:14, 895.32it/s]Load IMDB File:  22%|██▏       | 3501/16021 [00:03<00:13, 938.63it/s]Load IMDB File:  23%|██▎       | 3605/16021 [00:03<00:12, 966.35it/s]Load IMDB File:  23%|██▎       | 3703/16021 [00:04<00:13, 912.17it/s]Load IMDB File:  24%|██▎       | 3796/16021 [00:04<00:13, 907.97it/s]Load IMDB File:  24%|██▍       | 3890/16021 [00:04<00:13, 912.66it/s]Load IMDB File:  25%|██▍       | 3982/16021 [00:04<00:13, 898.53it/s]Load IMDB File:  25%|██▌       | 4082/16021 [00:04<00:12, 923.89it/s]Load IMDB File:  26%|██▌       | 4175/16021 [00:04<00:13, 897.28it/s]Load IMDB File:  27%|██▋       | 4270/16021 [00:04<00:12, 909.61it/s]Load IMDB File:  27%|██▋       | 4362/16021 [00:04<00:13, 858.22it/s]Load IMDB File:  28%|██▊       | 4449/16021 [00:04<00:13, 843.96it/s]Load IMDB File:  28%|██▊       | 4537/16021 [00:05<00:13, 853.56it/s]Load IMDB File:  29%|██▉       | 4644/16021 [00:05<00:12, 913.72it/s]Load IMDB File:  30%|██▉       | 4736/16021 [00:05<00:13, 848.72it/s]Load IMDB File:  30%|███       | 4823/16021 [00:05<00:13, 824.05it/s]Load IMDB File:  31%|███       | 4916/16021 [00:05<00:13, 851.99it/s]Load IMDB File:  31%|███▏      | 5010/16021 [00:05<00:12, 874.03it/s]Load IMDB File:  32%|███▏      | 5115/16021 [00:05<00:11, 920.73it/s]Load IMDB File:  33%|███▎      | 5208/16021 [00:05<00:12, 854.08it/s]Load IMDB File:  33%|███▎      | 5295/16021 [00:05<00:12, 850.90it/s]Load IMDB File:  34%|███▎      | 5381/16021 [00:06<00:12, 832.15it/s]Load IMDB File:  34%|███▍      | 5474/16021 [00:06<00:12, 857.15it/s]Load IMDB File:  35%|███▍      | 5589/16021 [00:06<00:11, 934.15it/s]Load IMDB File:  35%|███▌      | 5684/16021 [00:06<00:11, 881.88it/s]Load IMDB File:  36%|███▌      | 5774/16021 [00:06<00:11, 874.39it/s]Load IMDB File:  37%|███▋      | 5873/16021 [00:06<00:11, 906.36it/s]Load IMDB File:  37%|███▋      | 5965/16021 [00:06<00:11, 903.45it/s]Load IMDB File:  38%|███▊      | 6056/16021 [00:06<00:11, 888.56it/s]Load IMDB File:  38%|███▊      | 6152/16021 [00:06<00:10, 905.75it/s]Load IMDB File:  39%|███▉      | 6243/16021 [00:06<00:11, 878.93it/s]Load IMDB File:  40%|███▉      | 6332/16021 [00:07<00:11, 879.20it/s]Load IMDB File:  40%|████      | 6421/16021 [00:07<00:11, 858.38it/s]Load IMDB File:  41%|████      | 6520/16021 [00:07<00:10, 895.64it/s]Load IMDB File:  41%|████▏     | 6622/16021 [00:07<00:10, 931.45it/s]Load IMDB File:  42%|████▏     | 6716/16021 [00:07<00:10, 884.15it/s]Load IMDB File:  42%|████▏     | 6806/16021 [00:07<00:10, 867.93it/s]Load IMDB File:  43%|████▎     | 6900/16021 [00:07<00:10, 887.91it/s]Load IMDB File:  44%|████▎     | 6990/16021 [00:07<00:10, 865.02it/s]Load IMDB File:  44%|████▍     | 7092/16021 [00:07<00:09, 908.51it/s]Load IMDB File:  45%|████▍     | 7204/16021 [00:08<00:09, 968.58it/s]Load IMDB File:  46%|████▌     | 7302/16021 [00:08<00:09, 916.66it/s]Load IMDB File:  46%|████▌     | 7395/16021 [00:08<00:09, 885.11it/s]Load IMDB File:  47%|████▋     | 7485/16021 [00:08<00:09, 881.14it/s]Load IMDB File:  47%|████▋     | 7576/16021 [00:08<00:09, 888.58it/s]Load IMDB File:  48%|████▊     | 7679/16021 [00:08<00:08, 928.87it/s]Load IMDB File:  49%|████▊     | 7794/16021 [00:08<00:08, 992.38it/s]Load IMDB File:  49%|████▉     | 7894/16021 [00:08<00:08, 939.88it/s]Load IMDB File:  50%|████▉     | 7989/16021 [00:08<00:08, 913.36it/s]Load IMDB File:  50%|█████     | 8081/16021 [00:09<00:08, 903.10it/s]Load IMDB File:  51%|█████     | 8172/16021 [00:09<00:09, 864.95it/s]Load IMDB File:  52%|█████▏    | 8260/16021 [00:09<00:08, 869.15it/s]Load IMDB File:  52%|█████▏    | 8348/16021 [00:09<00:08, 854.32it/s]Load IMDB File:  53%|█████▎    | 8440/16021 [00:09<00:08, 871.38it/s]Load IMDB File:  53%|█████▎    | 8532/16021 [00:09<00:08, 880.83it/s]Load IMDB File:  54%|█████▍    | 8627/16021 [00:09<00:08, 900.06it/s]Load IMDB File:  54%|█████▍    | 8724/16021 [00:09<00:07, 917.50it/s]Load IMDB File:  55%|█████▌    | 8819/16021 [00:09<00:07, 926.98it/s]Load IMDB File:  56%|█████▌    | 8912/16021 [00:09<00:07, 900.80it/s]Load IMDB File:  56%|█████▌    | 9003/16021 [00:10<00:07, 899.24it/s]Load IMDB File:  57%|█████▋    | 9101/16021 [00:10<00:07, 921.62it/s]Load IMDB File:  57%|█████▋    | 9196/16021 [00:10<00:07, 926.25it/s]Load IMDB File:  58%|█████▊    | 9301/16021 [00:10<00:07, 955.35it/s]Load IMDB File:  59%|█████▊    | 9397/16021 [00:10<00:07, 935.43it/s]Load IMDB File:  59%|█████▉    | 9491/16021 [00:10<00:07, 894.45it/s]Load IMDB File:  60%|█████▉    | 9581/16021 [00:10<00:07, 876.98it/s]Load IMDB File:  60%|██████    | 9673/16021 [00:10<00:07, 888.99it/s]Load IMDB File:  61%|██████    | 9777/16021 [00:10<00:06, 921.67it/s]Load IMDB File:  62%|██████▏   | 9870/16021 [00:11<00:06, 882.36it/s]Load IMDB File:  62%|██████▏   | 9959/16021 [00:11<00:07, 843.93it/s]Load IMDB File:  63%|██████▎   | 10044/16021 [00:11<00:07, 824.61it/s]Load IMDB File:  63%|██████▎   | 10127/16021 [00:11<00:07, 822.36it/s]Load IMDB File:  64%|██████▍   | 10220/16021 [00:11<00:06, 851.44it/s]Load IMDB File:  64%|██████▍   | 10306/16021 [00:11<00:07, 812.15it/s]Load IMDB File:  65%|██████▍   | 10388/16021 [00:11<00:06, 806.82it/s]Load IMDB File:  65%|██████▌   | 10484/16021 [00:11<00:06, 848.03it/s]Load IMDB File:  66%|██████▌   | 10570/16021 [00:11<00:06, 848.80it/s]Load IMDB File:  67%|██████▋   | 10666/16021 [00:11<00:06, 879.91it/s]Load IMDB File:  67%|██████▋   | 10779/16021 [00:12<00:05, 951.61it/s]Load IMDB File:  68%|██████▊   | 10875/16021 [00:12<00:05, 942.82it/s]Load IMDB File:  68%|██████▊   | 10970/16021 [00:12<00:05, 928.54it/s]Load IMDB File:  69%|██████▉   | 11064/16021 [00:12<00:05, 923.65it/s]Load IMDB File:  70%|██████▉   | 11161/16021 [00:12<00:05, 935.26it/s]Load IMDB File:  70%|███████   | 11270/16021 [00:12<00:04, 978.82it/s]Load IMDB File:  71%|███████   | 11369/16021 [00:12<00:04, 967.36it/s]Load IMDB File:  72%|███████▏  | 11466/16021 [00:12<00:04, 958.09it/s]Load IMDB File:  72%|███████▏  | 11565/16021 [00:12<00:04, 967.29it/s]Load IMDB File:  73%|███████▎  | 11662/16021 [00:12<00:04, 946.34it/s]Load IMDB File:  73%|███████▎  | 11757/16021 [00:13<00:04, 942.33it/s]Load IMDB File:  74%|███████▍  | 11876/16021 [00:13<00:04, 1014.58it/s]Load IMDB File:  75%|███████▍  | 11978/16021 [00:13<00:04, 925.33it/s] Load IMDB File:  75%|███████▌  | 12073/16021 [00:13<00:04, 900.74it/s]Load IMDB File:  76%|███████▌  | 12165/16021 [00:13<00:04, 904.41it/s]Load IMDB File:  77%|███████▋  | 12257/16021 [00:13<00:04, 886.60it/s]Load IMDB File:  77%|███████▋  | 12357/16021 [00:13<00:03, 917.88it/s]Load IMDB File:  78%|███████▊  | 12450/16021 [00:13<00:04, 866.91it/s]Load IMDB File:  78%|███████▊  | 12539/16021 [00:13<00:04, 870.35it/s]Load IMDB File:  79%|███████▉  | 12627/16021 [00:14<00:04, 847.99it/s]Load IMDB File:  79%|███████▉  | 12713/16021 [00:14<00:03, 849.63it/s]Load IMDB File:  80%|███████▉  | 12804/16021 [00:14<00:03, 866.33it/s]Load IMDB File:  81%|████████  | 12902/16021 [00:14<00:03, 896.34it/s]Load IMDB File:  81%|████████  | 12992/16021 [00:14<00:03, 848.47it/s]Load IMDB File:  82%|████████▏ | 13078/16021 [00:14<00:03, 823.34it/s]Load IMDB File:  82%|████████▏ | 13171/16021 [00:14<00:03, 852.45it/s]Load IMDB File:  83%|████████▎ | 13259/16021 [00:14<00:03, 858.33it/s]Load IMDB File:  83%|████████▎ | 13357/16021 [00:14<00:02, 892.10it/s]Load IMDB File:  84%|████████▍ | 13447/16021 [00:15<00:02, 871.35it/s]Load IMDB File:  85%|████████▍ | 13539/16021 [00:15<00:02, 884.85it/s]Load IMDB File:  85%|████████▌ | 13637/16021 [00:15<00:02, 910.94it/s]Load IMDB File:  86%|████████▌ | 13729/16021 [00:15<00:02, 908.90it/s]Load IMDB File:  86%|████████▋ | 13825/16021 [00:15<00:02, 920.22it/s]Load IMDB File:  87%|████████▋ | 13924/16021 [00:15<00:02, 939.09it/s]Load IMDB File:  88%|████████▊ | 14019/16021 [00:15<00:02, 938.43it/s]Load IMDB File:  88%|████████▊ | 14113/16021 [00:15<00:02, 909.51it/s]Load IMDB File:  89%|████████▊ | 14205/16021 [00:15<00:02, 883.64it/s]Load IMDB File:  89%|████████▉ | 14299/16021 [00:15<00:01, 899.53it/s]Load IMDB File:  90%|████████▉ | 14395/16021 [00:16<00:01, 915.75it/s]Load IMDB File:  90%|█████████ | 14494/16021 [00:16<00:01, 936.34it/s]Load IMDB File:  91%|█████████ | 14588/16021 [00:16<00:01, 892.14it/s]Load IMDB File:  92%|█████████▏| 14679/16021 [00:16<00:01, 894.50it/s]Load IMDB File:  92%|█████████▏| 14769/16021 [00:16<00:01, 861.19it/s]Load IMDB File:  93%|█████████▎| 14856/16021 [00:16<00:01, 856.28it/s]Load IMDB File:  93%|█████████▎| 14955/16021 [00:16<00:01, 894.54it/s]Load IMDB File:  94%|█████████▍| 15051/16021 [00:16<00:01, 912.15it/s]Load IMDB File:  95%|█████████▍| 15143/16021 [00:16<00:00, 897.46it/s]Load IMDB File:  95%|█████████▌| 15233/16021 [00:17<00:00, 869.51it/s]Load IMDB File:  96%|█████████▌| 15333/16021 [00:17<00:00, 903.97it/s]Load IMDB File:  96%|█████████▋| 15432/16021 [00:17<00:00, 927.05it/s]Load IMDB File:  97%|█████████▋| 15532/16021 [00:17<00:00, 946.08it/s]Load IMDB File:  98%|█████████▊| 15627/16021 [00:17<00:00, 896.94it/s]Load IMDB File:  98%|█████████▊| 15718/16021 [00:17<00:00, 866.59it/s]Load IMDB File:  99%|█████████▊| 15818/16021 [00:17<00:00, 901.13it/s]Load IMDB File:  99%|█████████▉| 15916/16021 [00:17<00:00, 922.93it/s]Load IMDB File: 100%|██████████| 16021/16021 [00:17<00:00, 897.49it/s]
+Load IMDB File:   0%|          | 0/2003 [00:00<?, ?it/s]Load IMDB File:   4%|▍         | 82/2003 [00:00<00:02, 812.03it/s]Load IMDB File:   8%|▊         | 164/2003 [00:00<00:02, 745.52it/s]Load IMDB File:  12%|█▏        | 244/2003 [00:00<00:02, 751.38it/s]Load IMDB File:  18%|█▊        | 354/2003 [00:00<00:01, 882.43it/s]Load IMDB File:  22%|██▏       | 443/2003 [00:00<00:01, 826.53it/s]Load IMDB File:  26%|██▋       | 529/2003 [00:00<00:01, 834.56it/s]Load IMDB File:  31%|███       | 620/2003 [00:00<00:01, 855.65it/s]Load IMDB File:  36%|███▋      | 729/2003 [00:00<00:01, 926.21it/s]Load IMDB File:  41%|████▏     | 831/2003 [00:00<00:01, 953.53it/s]Load IMDB File:  47%|████▋     | 939/2003 [00:01<00:01, 985.84it/s]Load IMDB File:  52%|█████▏    | 1038/2003 [00:01<00:01, 950.22it/s]Load IMDB File:  57%|█████▋    | 1134/2003 [00:01<00:00, 929.68it/s]Load IMDB File:  61%|██████▏   | 1228/2003 [00:01<00:00, 927.52it/s]Load IMDB File:  66%|██████▋   | 1327/2003 [00:01<00:00, 943.73it/s]Load IMDB File:  72%|███████▏  | 1435/2003 [00:01<00:00, 972.46it/s]Load IMDB File:  78%|███████▊  | 1562/2003 [00:01<00:00, 1059.33it/s]Load IMDB File:  83%|████████▎ | 1669/2003 [00:01<00:00, 979.12it/s] Load IMDB File:  88%|████████▊ | 1769/2003 [00:01<00:00, 925.21it/s]Load IMDB File:  93%|█████████▎| 1863/2003 [00:02<00:00, 907.69it/s]Load IMDB File:  98%|█████████▊| 1959/2003 [00:02<00:00, 921.25it/s]Load IMDB File: 100%|██████████| 2003/2003 [00:02<00:00, 917.84it/s]
+Load IMDB File:   0%|          | 0/2007 [00:00<?, ?it/s]Load IMDB File:   5%|▌         | 103/2007 [00:00<00:01, 1021.45it/s]Load IMDB File:  10%|█         | 207/2007 [00:00<00:01, 1031.51it/s]Load IMDB File:  16%|█▌        | 314/2007 [00:00<00:01, 1047.33it/s]Load IMDB File:  21%|██        | 419/2007 [00:00<00:01, 923.61it/s] Load IMDB File:  26%|██▌       | 514/2007 [00:00<00:01, 906.13it/s]Load IMDB File:  30%|███       | 612/2007 [00:00<00:01, 926.75it/s]Load IMDB File:  35%|███▌      | 708/2007 [00:00<00:01, 936.96it/s]Load IMDB File:  40%|████      | 803/2007 [00:00<00:01, 917.33it/s]Load IMDB File:  45%|████▍     | 896/2007 [00:00<00:01, 894.77it/s]Load IMDB File:  49%|████▉     | 986/2007 [00:01<00:01, 870.83it/s]Load IMDB File:  54%|█████▎    | 1077/2007 [00:01<00:01, 880.21it/s]Load IMDB File:  58%|█████▊    | 1166/2007 [00:01<00:00, 880.78it/s]Load IMDB File:  63%|██████▎   | 1263/2007 [00:01<00:00, 905.00it/s]Load IMDB File:  67%|██████▋   | 1354/2007 [00:01<00:00, 879.85it/s]Load IMDB File:  72%|███████▏  | 1443/2007 [00:01<00:00, 831.38it/s]Load IMDB File:  76%|███████▌  | 1528/2007 [00:01<00:00, 834.86it/s]Load IMDB File:  81%|████████  | 1624/2007 [00:01<00:00, 870.48it/s]Load IMDB File:  87%|████████▋ | 1743/2007 [00:01<00:00, 952.61it/s]Load IMDB File:  92%|█████████▏| 1839/2007 [00:02<00:00, 914.91it/s]Load IMDB File:  96%|█████████▋| 1932/2007 [00:02<00:00, 908.31it/s]Load IMDB File: 100%|██████████| 2007/2007 [00:02<00:00, 908.55it/s]
+/data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/utils/trainer.py:117: UserWarning: optimizer attributes has no params defined, defaulting to {}.
+  warnings.warn(
+2025-08-13 00:22 - INFO - === Model ===
+2025-08-13 00:22 - INFO - LSTMR(
+  (ocr_embedding): OCREmbedding(
+    (l2norm): L2Norm()
+    (layer_norm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+    (activation): ReLU()
+    (projection_feat): Linear(in_features=1160, out_features=768, bias=True)
+    (projection_bbox): Linear(in_features=8, out_features=768, bias=True)
+  )
+  (obj_embedding): ObjEmbedding(
+    (l2norm): L2Norm()
+    (layer_norm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+    (activation): ReLU()
+    (projection): Linear(in_features=1024, out_features=768, bias=True)
+  )
+  (geo_relationship): GeoRelationship(
+    (hw_relation): HeightWidthRelation()
+    (dis_relation): DistanceRelation()
+    (iou_relation): IoURelation()
+    (angle_relation): AngleRelation()
+    (linear): Linear(in_features=11, out_features=768, bias=True)
+    (activation): ReLU()
+    (layer_norm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  )
+  (word_embedding): WordEmbedding(
+    (model): RobertaModel(
+      (embeddings): RobertaEmbeddings(
+        (word_embeddings): Embedding(64001, 768, padding_idx=1)
+        (position_embeddings): Embedding(258, 768, padding_idx=1)
+        (token_type_embeddings): Embedding(1, 768)
+        (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (dropout): Dropout(p=0.1, inplace=False)
+      )
+      (encoder): RobertaEncoder(
+        (layer): ModuleList(
+          (0-11): 12 x RobertaLayer(
+            (attention): RobertaAttention(
+              (self): RobertaSdpaSelfAttention(
+                (query): Linear(in_features=768, out_features=768, bias=True)
+                (key): Linear(in_features=768, out_features=768, bias=True)
+                (value): Linear(in_features=768, out_features=768, bias=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+              (output): RobertaSelfOutput(
+                (dense): Linear(in_features=768, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+            (intermediate): RobertaIntermediate(
+              (dense): Linear(in_features=768, out_features=3072, bias=True)
+              (intermediate_act_fn): GELUActivation()
+            )
+            (output): RobertaOutput(
+              (dense): Linear(in_features=3072, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+        )
+      )
+      (pooler): RobertaPooler(
+        (dense): Linear(in_features=768, out_features=768, bias=True)
+        (activation): Tanh()
+      )
+    )
+    (common_vocab): PretrainedVocab(
+      (model): RobertaModel(
+        (embeddings): RobertaEmbeddings(
+          (word_embeddings): Embedding(64001, 768, padding_idx=1)
+          (position_embeddings): Embedding(258, 768, padding_idx=1)
+          (token_type_embeddings): Embedding(1, 768)
+          (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+        (encoder): RobertaEncoder(
+          (layer): ModuleList(
+            (0-11): 12 x RobertaLayer(
+              (attention): RobertaAttention(
+                (self): RobertaSdpaSelfAttention(
+                  (query): Linear(in_features=768, out_features=768, bias=True)
+                  (key): Linear(in_features=768, out_features=768, bias=True)
+                  (value): Linear(in_features=768, out_features=768, bias=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+                (output): RobertaSelfOutput(
+                  (dense): Linear(in_features=768, out_features=768, bias=True)
+                  (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+                  (dropout): Dropout(p=0.1, inplace=False)
+                )
+              )
+              (intermediate): RobertaIntermediate(
+                (dense): Linear(in_features=768, out_features=3072, bias=True)
+                (intermediate_act_fn): GELUActivation()
+              )
+              (output): RobertaOutput(
+                (dense): Linear(in_features=3072, out_features=768, bias=True)
+                (LayerNorm): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+                (dropout): Dropout(p=0.1, inplace=False)
+              )
+            )
+          )
+        )
+        (pooler): RobertaPooler(
+          (dense): Linear(in_features=768, out_features=768, bias=True)
+          (activation): Tanh()
+        )
+      )
+      (vectors): Embedding(5948, 768)
+    )
+  )
+  (decoder): Decoder(
+    (lstm_cell): LSTMCell(2304, 768)
+    (attention): LSTMAttention(
+      (activation): Tanh()
+      (softmax): Softmax(dim=None)
+      (w): Linear(in_features=768, out_features=1, bias=True)
+      (hidden_state_linear): Linear(in_features=768, out_features=768, bias=True)
+      (input_linear): Linear(in_features=768, out_features=768, bias=True)
+    )
+  )
+  (classifier): Linear(in_features=768, out_features=5948, bias=True)
+  (ptr_net): OcrPtrNet(
+    (linear_hidden_state): Linear(in_features=768, out_features=768, bias=True)
+    (linear_augmented_feat): Linear(in_features=1536, out_features=768, bias=True)
+  )
+)
+2025-08-13 00:22 - INFO - Starting training...
+2025-08-13 00:22 - INFO - Training epoch: 1
+Iterating through train loader: 0it [00:00, ?it/s]2025-08-13 00:22 - INFO - Training batch: 1
+/data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/project/modules/multimodal_embedding.py:216: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:254.)
+  return torch.tensor(fasttext_embedding).to(self.device)
+/data2/npl/ViInfographicCaps/venv/global_venv/lib/python3.9/site-packages/torch/nn/modules/module.py:1751: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  return self._call_impl(*args, **kwargs)
+Iterating through train loader: 1it [01:18, 78.25s/it]2025-08-13 00:23 - INFO - Training batch: 2
+Iterating through train loader: 2it [02:30, 74.62s/it]2025-08-13 00:24 - INFO - Training batch: 3
+Iterating through train loader: 3it [03:53, 78.36s/it]2025-08-13 00:26 - INFO - Training batch: 4
+Iterating through train loader: 4it [05:03, 75.11s/it]2025-08-13 00:27 - INFO - Training batch: 5
+Iterating through train loader: 5it [06:14, 73.76s/it]2025-08-13 00:28 - INFO - Training batch: 6
+Iterating through train loader: 6it [07:24, 72.39s/it]2025-08-13 00:29 - INFO - Training batch: 7
+Iterating through train loader: 7it [09:20, 86.54s/it]2025-08-13 00:31 - INFO - Training batch: 8
+Iterating through train loader: 8it [10:21, 78.61s/it]2025-08-13 00:32 - INFO - Training batch: 9
+Iterating through train loader: 9it [11:16, 71.28s/it]2025-08-13 00:33 - INFO - Training batch: 10
+Iterating through train loader: 10it [12:35, 73.47s/it]2025-08-13 00:35 - INFO - Training batch: 11
+Iterating through train loader: 11it [13:51, 74.19s/it]2025-08-13 00:36 - INFO - Training batch: 12
+Iterating through train loader: 12it [15:10, 75.87s/it]2025-08-13 00:37 - INFO - Training batch: 13
+Iterating through train loader: 13it [16:25, 75.66s/it]2025-08-13 00:38 - INFO - Training batch: 14
+Iterating through train loader: 14it [17:28, 71.65s/it]2025-08-13 00:39 - INFO - Training batch: 15
+Iterating through train loader: 15it [18:42, 72.36s/it]2025-08-13 00:41 - INFO - Training batch: 16
+Iterating through train loader: 16it [19:56, 72.85s/it]2025-08-13 00:42 - INFO - Training batch: 17
+Iterating through train loader: 17it [21:15, 74.68s/it]2025-08-13 00:43 - INFO - Training batch: 18
+Iterating through train loader: 18it [22:33, 75.74s/it]2025-08-13 00:45 - INFO - Training batch: 19
+Iterating through train loader: 19it [23:46, 74.86s/it]2025-08-13 00:46 - INFO - Training batch: 20
+Iterating through train loader: 20it [24:48, 71.08s/it]2025-08-13 00:47 - INFO - Training batch: 21
+Iterating through train loader: 21it [26:04, 72.42s/it]2025-08-13 00:48 - INFO - Training batch: 22
+Iterating through train loader: 22it [27:07, 69.77s/it]2025-08-13 00:49 - INFO - Training batch: 23
+Iterating through train loader: 23it [28:23, 71.51s/it]2025-08-13 00:50 - INFO - Training batch: 24
+Iterating through train loader: 24it [29:33, 71.01s/it]2025-08-13 00:52 - INFO - Training batch: 25
+Iterating through train loader: 25it [30:40, 70.02s/it]2025-08-13 00:53 - INFO - Training batch: 26
+Iterating through train loader: 26it [31:59, 72.61s/it]2025-08-13 00:54 - INFO - Training batch: 27
+Iterating through train loader: 27it [33:18, 74.55s/it]2025-08-13 00:55 - INFO - Training batch: 28
+Iterating through train loader: 28it [34:39, 76.54s/it]2025-08-13 00:57 - INFO - Training batch: 29
+Iterating through train loader: 29it [35:54, 76.11s/it]2025-08-13 00:58 - INFO - Training batch: 30
+Iterating through train loader: 30it [37:08, 75.45s/it]2025-08-13 00:59 - INFO - Training batch: 31
+Iterating through train loader: 31it [38:24, 75.42s/it]2025-08-13 01:00 - INFO - Training batch: 32
+Iterating through train loader: 32it [39:48, 78.26s/it]2025-08-13 01:02 - INFO - Training batch: 33
+Iterating through train loader: 33it [41:02, 76.79s/it]2025-08-13 01:03 - INFO - Training batch: 34
+Iterating through train loader: 34it [42:18, 76.68s/it]2025-08-13 01:04 - INFO - Training batch: 35
+Iterating through train loader: 35it [43:39, 77.90s/it]2025-08-13 01:06 - INFO - Training batch: 36
+Iterating through train loader: 36it [44:57, 77.94s/it]2025-08-13 01:07 - INFO - Training batch: 37
+Iterating through train loader: 37it [46:08, 75.95s/it]2025-08-13 01:08 - INFO - Training batch: 38
+Iterating through train loader: 38it [47:29, 77.26s/it]2025-08-13 01:09 - INFO - Training batch: 39
+Iterating through train loader: 39it [48:42, 76.01s/it]2025-08-13 01:11 - INFO - Training batch: 40
+Iterating through train loader: 40it [50:04, 77.81s/it]2025-08-13 01:12 - INFO - Training batch: 41
+Iterating through train loader: 41it [51:21, 77.55s/it]2025-08-13 01:13 - INFO - Training batch: 42
+Iterating through train loader: 42it [52:34, 76.25s/it]2025-08-13 01:15 - INFO - Training batch: 43
+Iterating through train loader: 43it [53:43, 74.15s/it]2025-08-13 01:16 - INFO - Training batch: 44
+Iterating through train loader: 44it [54:57, 74.11s/it]2025-08-13 01:17 - INFO - Training batch: 45
+Iterating through train loader: 45it [56:12, 74.41s/it]2025-08-13 01:18 - INFO - Training batch: 46
+Iterating through train loader: 46it [57:31, 75.81s/it]2025-08-13 01:19 - INFO - Training batch: 47
+Iterating through train loader: 47it [59:06, 81.51s/it]2025-08-13 01:21 - INFO - Training batch: 48
+Iterating through train loader: 48it [1:00:49, 87.81s/it]2025-08-13 01:23 - INFO - Training batch: 49
+Iterating through train loader: 49it [1:01:26, 72.61s/it]2025-08-13 01:23 - INFO - Training batch: 50
+Iterating through train loader: 50it [1:02:30, 70.00s/it]2025-08-13 01:24 - INFO - Training batch: 51
+Iterating through train loader: 51it [1:03:51, 73.38s/it]2025-08-13 01:26 - INFO - Training batch: 52
+Iterating through train loader: 52it [1:05:18, 77.51s/it]2025-08-13 01:27 - INFO - Training batch: 53
+Iterating through train loader: 53it [1:06:37, 77.96s/it]2025-08-13 01:29 - INFO - Training batch: 54
+Iterating through train loader: 54it [1:08:25, 86.97s/it]2025-08-13 01:30 - INFO - Training batch: 55
+Iterating through train loader: 55it [1:09:34, 81.53s/it]2025-08-13 01:32 - INFO - Training batch: 56
+Iterating through train loader: 56it [1:10:45, 78.37s/it]2025-08-13 01:33 - INFO - Training batch: 57
+Iterating through train loader: 57it [1:12:01, 77.56s/it]2025-08-13 01:34 - INFO - Training batch: 58
+Iterating through train loader: 58it [1:13:12, 75.72s/it]2025-08-13 01:35 - INFO - Training batch: 59
+Iterating through train loader: 59it [1:14:35, 77.95s/it]2025-08-13 01:37 - INFO - Training batch: 60
+Iterating through train loader: 60it [1:15:51, 77.33s/it]2025-08-13 01:38 - INFO - Training batch: 61
+Iterating through train loader: 61it [1:17:02, 75.43s/it]2025-08-13 01:39 - INFO - Training batch: 62
+Iterating through train loader: 62it [1:18:20, 76.22s/it]2025-08-13 01:40 - INFO - Training batch: 63
+Iterating through train loader: 63it [1:19:34, 75.61s/it]2025-08-13 01:42 - INFO - Training batch: 64
+Iterating through train loader: 64it [1:20:53, 76.60s/it]2025-08-13 01:43 - INFO - Training batch: 65
+Iterating through train loader: 65it [1:22:03, 74.53s/it]2025-08-13 01:44 - INFO - Training batch: 66
+Iterating through train loader: 66it [1:23:14, 73.51s/it]2025-08-13 01:45 - INFO - Training batch: 67
+Iterating through train loader: 67it [1:24:28, 73.65s/it]2025-08-13 01:46 - INFO - Training batch: 68
+Iterating through train loader: 68it [1:25:43, 73.91s/it]2025-08-13 01:48 - INFO - Training batch: 69
+Iterating through train loader: 69it [1:26:56, 73.85s/it]2025-08-13 01:49 - INFO - Training batch: 70
+Iterating through train loader: 70it [1:28:12, 74.35s/it]2025-08-13 01:50 - INFO - Training batch: 71
+Iterating through train loader: 71it [1:29:26, 74.16s/it]2025-08-13 01:51 - INFO - Training batch: 72
+Iterating through train loader: 72it [1:30:45, 75.61s/it]2025-08-13 01:53 - INFO - Training batch: 73
+Iterating through train loader: 73it [1:32:07, 77.76s/it]2025-08-13 01:54 - INFO - Training batch: 74
+Iterating through train loader: 74it [1:33:18, 75.76s/it]2025-08-13 01:55 - INFO - Training batch: 75
+Iterating through train loader: 75it [1:34:32, 75.25s/it]2025-08-13 01:57 - INFO - Training batch: 76
+Iterating through train loader: 76it [1:35:40, 72.80s/it]2025-08-13 01:58 - INFO - Training batch: 77
+Iterating through train loader: 77it [1:36:56, 73.90s/it]2025-08-13 01:59 - INFO - Training batch: 78
+Iterating through train loader: 78it [1:38:09, 73.48s/it]2025-08-13 02:00 - INFO - Training batch: 79
+Iterating through train loader: 79it [1:39:28, 75.36s/it]2025-08-13 02:01 - INFO - Training batch: 80
+Iterating through train loader: 80it [1:40:46, 76.00s/it]2025-08-13 02:03 - INFO - Training batch: 81
+Iterating through train loader: 81it [1:42:04, 76.60s/it]2025-08-13 02:04 - INFO - Training batch: 82
+Iterating through train loader: 82it [1:43:17, 75.68s/it]2025-08-13 02:05 - INFO - Training batch: 83
+Iterating through train loader: 83it [1:44:29, 74.50s/it]2025-08-13 02:06 - INFO - Training batch: 84
+Iterating through train loader: 84it [1:45:44, 74.53s/it]2025-08-13 02:08 - INFO - Training batch: 85
+Iterating through train loader: 85it [1:47:05, 76.63s/it]2025-08-13 02:09 - INFO - Training batch: 86
+Iterating through train loader: 86it [1:48:23, 77.04s/it]2025-08-13 02:10 - INFO - Training batch: 87
+Iterating through train loader: 87it [1:49:57, 82.13s/it]2025-08-13 02:12 - INFO - Training batch: 88
+Iterating through train loader: 88it [1:51:39, 88.11s/it]2025-08-13 02:14 - INFO - Training batch: 89
+Iterating through train loader: 89it [1:52:14, 72.10s/it]2025-08-13 02:14 - INFO - Training batch: 90
+Iterating through train loader: 90it [1:53:19, 69.92s/it]2025-08-13 02:15 - INFO - Training batch: 91
+Iterating through train loader: 91it [1:54:33, 71.27s/it]2025-08-13 02:17 - INFO - Training batch: 92
+Iterating through train loader: 92it [1:55:55, 74.37s/it]2025-08-13 02:18 - INFO - Training batch: 93
+Iterating through train loader: 93it [1:57:08, 73.97s/it]2025-08-13 02:19 - INFO - Training batch: 94
+Iterating through train loader: 94it [1:58:21, 73.58s/it]2025-08-13 02:20 - INFO - Training batch: 95
+Iterating through train loader: 95it [1:59:32, 72.93s/it]2025-08-13 02:22 - INFO - Training batch: 96
+Iterating through train loader: 96it [2:00:49, 74.21s/it]2025-08-13 02:23 - INFO - Training batch: 97
+Iterating through train loader: 97it [2:02:06, 74.97s/it]2025-08-13 02:24 - INFO - Training batch: 98
+Iterating through train loader: 98it [2:03:20, 74.73s/it]2025-08-13 02:25 - INFO - Training batch: 99
+Iterating through train loader: 99it [2:04:41, 76.70s/it]2025-08-13 02:27 - INFO - Training batch: 100
+Iterating through train loader: 100it [2:05:53, 75.04s/it]2025-08-13 02:28 - INFO - Training batch: 101
+Iterating through train loader: 101it [2:07:12, 76.23s/it]2025-08-13 02:29 - INFO - Training batch: 102
+Iterating through train loader: 102it [2:08:22, 74.52s/it]2025-08-13 02:30 - INFO - Training batch: 103
+Iterating through train loader: 103it [2:09:38, 74.97s/it]2025-08-13 02:32 - INFO - Training batch: 104
+Iterating through train loader: 104it [2:10:57, 76.22s/it]2025-08-13 02:33 - INFO - Training batch: 105
+Iterating through train loader: 105it [2:12:12, 75.82s/it]2025-08-13 02:34 - INFO - Training batch: 106
+Iterating through train loader: 106it [2:13:30, 76.45s/it]2025-08-13 02:35 - INFO - Training batch: 107
+Iterating through train loader: 107it [2:14:49, 77.10s/it]2025-08-13 02:37 - INFO - Training batch: 108
+Iterating through train loader: 108it [2:15:59, 75.12s/it]2025-08-13 02:38 - INFO - Training batch: 109
+Iterating through train loader: 109it [2:16:37, 64.00s/it]2025-08-13 02:39 - INFO - Training batch: 110
+Iterating through train loader: 110it [2:17:11, 55.09s/it]2025-08-13 02:39 - INFO - Training batch: 111
+Iterating through train loader: 111it [2:17:48, 49.61s/it]2025-08-13 02:40 - INFO - Training batch: 112
+Iterating through train loader: 112it [2:18:24, 45.54s/it]2025-08-13 02:40 - INFO - Training batch: 113
+Iterating through train loader: 113it [2:19:02, 43.30s/it]2025-08-13 02:41 - INFO - Training batch: 114
+Iterating through train loader: 114it [2:19:37, 40.72s/it]2025-08-13 02:42 - INFO - Training batch: 115
+Iterating through train loader: 115it [2:20:17, 40.46s/it]2025-08-13 02:42 - INFO - Training batch: 116
+Iterating through train loader: 116it [2:20:53, 39.14s/it]2025-08-13 02:43 - INFO - Training batch: 117
+Iterating through train loader: 117it [2:21:30, 38.47s/it]2025-08-13 02:43 - INFO - Training batch: 118
+Iterating through train loader: 118it [2:22:08, 38.49s/it]2025-08-13 02:44 - INFO - Training batch: 119
+Iterating through train loader: 119it [2:22:49, 39.01s/it]2025-08-13 02:45 - INFO - Training batch: 120
+Iterating through train loader: 120it [2:23:27, 38.91s/it]2025-08-13 02:45 - INFO - Training batch: 121
+Iterating through train loader: 121it [2:24:06, 38.74s/it]2025-08-13 02:46 - INFO - Training batch: 122
+Iterating through train loader: 122it [2:24:42, 37.99s/it]2025-08-13 02:47 - INFO - Training batch: 123
+Iterating through train loader: 123it [2:25:21, 38.16s/it]2025-08-13 02:47 - INFO - Training batch: 124
+Iterating through train loader: 124it [2:25:57, 37.69s/it]2025-08-13 02:48 - INFO - Training batch: 125
+Iterating through train loader: 125it [2:26:35, 37.75s/it]2025-08-13 02:49 - INFO - Training batch: 126
+Iterating through train loader: 126it [2:27:18, 39.36s/it]2025-08-13 02:49 - INFO - Training batch: 127
+Iterating through train loader: 127it [2:27:53, 38.07s/it]2025-08-13 02:50 - INFO - Training batch: 128
+Iterating through train loader: 128it [2:28:32, 38.37s/it]2025-08-13 02:51 - INFO - Training batch: 129
+Iterating through train loader: 129it [2:29:06, 37.04s/it]2025-08-13 02:51 - INFO - Training batch: 130
+Iterating through train loader: 130it [2:29:42, 36.75s/it]2025-08-13 02:52 - INFO - Training batch: 131
+Iterating through train loader: 131it [2:30:21, 37.20s/it]2025-08-13 02:52 - INFO - Training batch: 132
+Iterating through train loader: 132it [2:30:55, 36.41s/it]2025-08-13 02:53 - INFO - Training batch: 133
+Iterating through train loader: 133it [2:31:32, 36.46s/it]2025-08-13 02:53 - INFO - Training batch: 134
+Iterating through train loader: 134it [2:32:09, 36.57s/it]2025-08-13 02:54 - INFO - Training batch: 135
+Iterating through train loader: 135it [2:32:44, 36.15s/it]2025-08-13 02:55 - INFO - Training batch: 136
+Iterating through train loader: 136it [2:33:20, 36.17s/it]2025-08-13 02:55 - INFO - Training batch: 137
+Iterating through train loader: 137it [2:34:00, 37.49s/it]2025-08-13 02:56 - INFO - Training batch: 138
+Iterating through train loader: 138it [2:34:40, 38.16s/it]2025-08-13 02:57 - INFO - Training batch: 139
+Iterating through train loader: 139it [2:35:18, 37.97s/it]2025-08-13 02:57 - INFO - Training batch: 140
+Iterating through train loader: 140it [2:36:00, 39.22s/it]2025-08-13 02:58 - INFO - Training batch: 141
+Iterating through train loader: 141it [2:36:36, 38.36s/it]2025-08-13 02:59 - INFO - Training batch: 142
+Iterating through train loader: 142it [2:37:14, 38.29s/it]2025-08-13 02:59 - INFO - Training batch: 143
+Iterating through train loader: 143it [2:37:51, 37.90s/it]2025-08-13 03:00 - INFO - Training batch: 144
+Iterating through train loader: 144it [2:38:33, 38.95s/it]2025-08-13 03:01 - INFO - Training batch: 145
+Iterating through train loader: 145it [2:39:10, 38.42s/it]2025-08-13 03:01 - INFO - Training batch: 146
+Iterating through train loader: 146it [2:39:49, 38.71s/it]2025-08-13 03:02 - INFO - Training batch: 147
+Iterating through train loader: 147it [2:40:25, 37.84s/it]2025-08-13 03:02 - INFO - Training batch: 148
+Iterating through train loader: 148it [2:41:02, 37.41s/it]2025-08-13 03:03 - INFO - Training batch: 149
+Iterating through train loader: 149it [2:41:39, 37.44s/it]2025-08-13 03:04 - INFO - Training batch: 150
+Iterating through train loader: 150it [2:42:15, 36.94s/it]2025-08-13 03:04 - INFO - Training batch: 151
+Iterating through train loader: 151it [2:42:51, 36.85s/it]2025-08-13 03:05 - INFO - Training batch: 152
+Iterating through train loader: 152it [2:43:30, 37.36s/it]2025-08-13 03:05 - INFO - Training batch: 153
+Iterating through train loader: 153it [2:44:04, 36.51s/it]2025-08-13 03:06 - INFO - Training batch: 154
+Iterating through train loader: 154it [2:44:42, 36.91s/it]2025-08-13 03:07 - INFO - Training batch: 155
+Iterating through train loader: 155it [2:45:20, 37.28s/it]2025-08-13 03:07 - INFO - Training batch: 156
+Iterating through train loader: 156it [2:45:55, 36.51s/it]2025-08-13 03:08 - INFO - Training batch: 157
+Iterating through train loader: 157it [2:46:34, 37.20s/it]2025-08-13 03:09 - INFO - Training batch: 158
+Iterating through train loader: 158it [2:47:12, 37.38s/it]2025-08-13 03:09 - INFO - Training batch: 159
+Iterating through train loader: 159it [2:47:49, 37.36s/it]2025-08-13 03:10 - INFO - Training batch: 160
+Iterating through train loader: 160it [2:48:27, 37.59s/it]2025-08-13 03:10 - INFO - Training batch: 161
+Iterating through train loader: 161it [2:48:59, 35.94s/it]2025-08-13 03:11 - INFO - Training batch: 162
+Iterating through train loader: 162it [2:49:44, 38.67s/it]2025-08-13 03:12 - INFO - Training batch: 163
+Iterating through train loader: 163it [2:50:26, 39.60s/it]2025-08-13 03:12 - INFO - Training batch: 164
+Iterating through train loader: 164it [2:51:06, 39.76s/it]2025-08-13 03:13 - INFO - Training batch: 165
+Iterating through train loader: 165it [2:51:48, 40.28s/it]2025-08-13 03:14 - INFO - Training batch: 166
+Iterating through train loader: 166it [2:52:27, 39.96s/it]2025-08-13 03:14 - INFO - Training batch: 167
+Iterating through train loader: 167it [2:53:04, 38.94s/it]2025-08-13 03:15 - INFO - Training batch: 168
+Iterating through train loader: 168it [2:53:42, 38.86s/it]2025-08-13 03:16 - INFO - Training batch: 169
+Iterating through train loader: 169it [2:54:21, 38.81s/it]2025-08-13 03:16 - INFO - Training batch: 170
+Iterating through train loader: 170it [2:54:57, 37.93s/it]2025-08-13 03:17 - INFO - Training batch: 171
+Iterating through train loader: 171it [2:55:34, 37.59s/it]2025-08-13 03:18 - INFO - Training batch: 172
+Iterating through train loader: 172it [2:56:11, 37.44s/it]2025-08-13 03:18 - INFO - Training batch: 173
+Iterating through train loader: 173it [2:56:49, 37.79s/it]2025-08-13 03:19 - INFO - Training batch: 174
+Iterating through train loader: 174it [2:57:26, 37.55s/it]2025-08-13 03:19 - INFO - Training batch: 175
+Iterating through train loader: 175it [2:58:03, 37.32s/it]2025-08-13 03:20 - INFO - Training batch: 176
+Iterating through train loader: 176it [2:58:35, 35.78s/it]2025-08-13 03:21 - INFO - Training batch: 177
+Iterating through train loader: 177it [2:59:12, 36.20s/it]2025-08-13 03:21 - INFO - Training batch: 178
+Iterating through train loader: 178it [2:59:46, 35.43s/it]2025-08-13 03:22 - INFO - Training batch: 179
+Iterating through train loader: 179it [3:00:24, 36.31s/it]2025-08-13 03:22 - INFO - Training batch: 180
+Iterating through train loader: 180it [3:00:56, 34.80s/it]2025-08-13 03:23 - INFO - Training batch: 181
+Iterating through train loader: 181it [3:01:35, 36.22s/it]2025-08-13 03:24 - INFO - Training batch: 182
+Iterating through train loader: 182it [3:02:11, 36.18s/it]2025-08-13 03:24 - INFO - Training batch: 183
+Iterating through train loader: 183it [3:02:50, 36.83s/it]2025-08-13 03:25 - INFO - Training batch: 184
+Iterating through train loader: 184it [3:03:30, 37.91s/it]2025-08-13 03:25 - INFO - Training batch: 185
+Iterating through train loader: 185it [3:04:05, 36.99s/it]2025-08-13 03:26 - INFO - Training batch: 186
+Iterating through train loader: 186it [3:04:38, 35.74s/it]2025-08-13 03:27 - INFO - Training batch: 187
+Iterating through train loader: 187it [3:05:18, 37.13s/it]2025-08-13 03:27 - INFO - Training batch: 188
+Iterating through train loader: 188it [3:05:56, 37.48s/it]2025-08-13 03:28 - INFO - Training batch: 189
+Iterating through train loader: 189it [3:06:37, 38.26s/it]2025-08-13 03:29 - INFO - Training batch: 190
+Iterating through train loader: 190it [3:07:15, 38.24s/it]2025-08-13 03:29 - INFO - Training batch: 191
+Iterating through train loader: 191it [3:07:52, 38.08s/it]2025-08-13 03:30 - INFO - Training batch: 192
+Iterating through train loader: 192it [3:08:31, 38.11s/it]2025-08-13 03:30 - INFO - Training batch: 193
+Iterating through train loader: 193it [3:09:04, 36.79s/it]2025-08-13 03:31 - INFO - Training batch: 194
+Iterating through train loader: 194it [3:09:39, 36.25s/it]2025-08-13 03:32 - INFO - Training batch: 195
+Iterating through train loader: 195it [3:10:15, 35.99s/it]2025-08-13 03:32 - INFO - Training batch: 196
+Iterating through train loader: 196it [3:10:50, 35.66s/it]2025-08-13 03:33 - INFO - Training batch: 197
+Iterating through train loader: 197it [3:11:29, 36.65s/it]2025-08-13 03:33 - INFO - Training batch: 198
+Iterating through train loader: 198it [3:12:04, 36.42s/it]2025-08-13 03:34 - INFO - Training batch: 199
+Iterating through train loader: 199it [3:12:43, 37.00s/it]2025-08-13 03:35 - INFO - Training batch: 200
+Iterating through train loader: 200it [3:13:22, 37.57s/it]2025-08-13 03:35 - INFO - Training batch: 201
+Iterating through train loader: 201it [3:14:00, 37.90s/it]2025-08-13 03:36 - INFO - Training batch: 202
+Iterating through train loader: 202it [3:14:35, 36.92s/it]2025-08-13 03:37 - INFO - Training batch: 203
+Iterating through train loader: 203it [3:15:13, 37.28s/it]2025-08-13 03:37 - INFO - Training batch: 204
+Iterating through train loader: 204it [3:15:52, 37.68s/it]2025-08-13 03:38 - INFO - Training batch: 205
+Iterating through train loader: 205it [3:16:29, 37.70s/it]2025-08-13 03:38 - INFO - Training batch: 206
+Iterating through train loader: 206it [3:17:04, 36.86s/it]2025-08-13 03:39 - INFO - Training batch: 207
+Iterating through train loader: 207it [3:17:44, 37.67s/it]2025-08-13 03:40 - INFO - Training batch: 208
+Iterating through train loader: 208it [3:18:24, 38.49s/it]2025-08-13 03:40 - INFO - Training batch: 209
+Iterating through train loader: 209it [3:19:03, 38.50s/it]2025-08-13 03:41 - INFO - Training batch: 210
+Iterating through train loader: 210it [3:19:36, 36.84s/it]2025-08-13 03:42 - INFO - Training batch: 211
+Iterating through train loader: 211it [3:20:08, 35.44s/it]2025-08-13 03:42 - INFO - Training batch: 212
+Iterating through train loader: 212it [3:20:45, 35.79s/it]2025-08-13 03:43 - INFO - Training batch: 213
+Iterating through train loader: 213it [3:21:25, 37.04s/it]2025-08-13 03:43 - INFO - Training batch: 214
+Iterating through train loader: 214it [3:22:05, 37.91s/it]2025-08-13 03:44 - INFO - Training batch: 215
+Iterating through train loader: 215it [3:22:40, 37.09s/it]2025-08-13 03:45 - INFO - Training batch: 216
+Iterating through train loader: 216it [3:23:15, 36.56s/it]2025-08-13 03:45 - INFO - Training batch: 217
+Iterating through train loader: 217it [3:23:50, 36.13s/it]2025-08-13 03:46 - INFO - Training batch: 218
+Iterating through train loader: 218it [3:24:28, 36.65s/it]2025-08-13 03:46 - INFO - Training batch: 219
+Iterating through train loader: 219it [3:25:07, 37.31s/it]2025-08-13 03:47 - INFO - Training batch: 220
+Iterating through train loader: 220it [3:25:43, 37.06s/it]2025-08-13 03:48 - INFO - Training batch: 221
+Iterating through train loader: 221it [3:26:22, 37.52s/it]2025-08-13 03:48 - INFO - Training batch: 222
+Iterating through train loader: 222it [3:26:59, 37.49s/it]2025-08-13 03:49 - INFO - Training batch: 223
+Iterating through train loader: 223it [3:27:36, 37.27s/it]2025-08-13 03:50 - INFO - Training batch: 224
+Iterating through train loader: 224it [3:28:14, 37.46s/it]2025-08-13 03:50 - INFO - Training batch: 225
+Iterating through train loader: 225it [3:28:48, 36.45s/it]2025-08-13 03:51 - INFO - Training batch: 226
+Iterating through train loader: 226it [3:29:26, 36.82s/it]2025-08-13 03:51 - INFO - Training batch: 227
+Iterating through train loader: 227it [3:30:04, 37.21s/it]2025-08-13 03:52 - INFO - Training batch: 228
+Iterating through train loader: 228it [3:30:39, 36.44s/it]2025-08-13 03:53 - INFO - Training batch: 229
+Iterating through train loader: 229it [3:31:15, 36.55s/it]2025-08-13 03:53 - INFO - Training batch: 230
+Iterating through train loader: 230it [3:31:51, 36.18s/it]2025-08-13 03:54 - INFO - Training batch: 231
+Iterating through train loader: 231it [3:32:26, 35.90s/it]2025-08-13 03:54 - INFO - Training batch: 232
+Iterating through train loader: 232it [3:32:58, 34.61s/it]2025-08-13 03:55 - INFO - Training batch: 233
+Iterating through train loader: 233it [3:33:34, 35.11s/it]2025-08-13 03:56 - INFO - Training batch: 234
+Iterating through train loader: 234it [3:34:13, 36.20s/it]2025-08-13 03:56 - INFO - Training batch: 235
+Iterating through train loader: 235it [3:34:49, 36.22s/it]2025-08-13 03:57 - INFO - Training batch: 236
+Iterating through train loader: 236it [3:35:28, 37.22s/it]2025-08-13 03:57 - INFO - Training batch: 237
+Iterating through train loader: 237it [3:36:02, 36.12s/it]2025-08-13 03:58 - INFO - Training batch: 238
+Iterating through train loader: 238it [3:36:39, 36.56s/it]2025-08-13 03:59 - INFO - Training batch: 239
+Iterating through train loader: 239it [3:37:13, 35.60s/it]2025-08-13 03:59 - INFO - Training batch: 240
+Iterating through train loader: 240it [3:37:47, 35.12s/it]2025-08-13 04:00 - INFO - Training batch: 241
+Iterating through train loader: 241it [3:38:24, 35.71s/it]2025-08-13 04:00 - INFO - Training batch: 242
+Iterating through train loader: 242it [3:39:03, 36.71s/it]2025-08-13 04:01 - INFO - Training batch: 243
+Iterating through train loader: 243it [3:39:39, 36.47s/it]2025-08-13 04:02 - INFO - Training batch: 244
+Iterating through train loader: 244it [3:40:11, 35.15s/it]2025-08-13 04:02 - INFO - Training batch: 245
+Iterating through train loader: 245it [3:40:43, 34.26s/it]2025-08-13 04:03 - INFO - Training batch: 246
+Iterating through train loader: 246it [3:41:20, 35.12s/it]2025-08-13 04:03 - INFO - Training batch: 247
+Iterating through train loader: 247it [3:41:54, 34.60s/it]2025-08-13 04:04 - INFO - Training batch: 248
+Iterating through train loader: 248it [3:42:29, 34.83s/it]2025-08-13 04:04 - INFO - Training batch: 249
+Iterating through train loader: 249it [3:43:08, 36.19s/it]2025-08-13 04:05 - INFO - Training batch: 250
+Iterating through train loader: 250it [3:43:43, 35.69s/it]2025-08-13 04:06 - INFO - Training batch: 251
+Iterating through train loader: 251it [3:43:54, 28.38s/it]Iterating through train loader: 251it [3:43:54, 53.52s/it]
+2025-08-13 04:06 - INFO - Training epoch: 2
+Iterating through train loader: 0it [00:00, ?it/s]2025-08-13 04:06 - INFO - Training batch: 1
+Iterating through train loader: 1it [00:35, 35.39s/it]2025-08-13 04:06 - INFO - Training batch: 2
+Iterating through train loader: 2it [01:12, 36.30s/it]2025-08-13 04:07 - INFO - Training batch: 3
+Iterating through train loader: 3it [01:53, 38.70s/it]2025-08-13 04:08 - INFO - Training batch: 4
+Iterating through train loader: 4it [02:29, 37.54s/it]2025-08-13 04:08 - INFO - Training batch: 5
+Iterating through train loader: 5it [03:05, 36.88s/it]2025-08-13 04:09 - INFO - Training batch: 6
+Iterating through train loader: 6it [03:38, 35.60s/it]2025-08-13 04:10 - INFO - Training batch: 7
+Iterating through train loader: 7it [04:15, 36.14s/it]2025-08-13 04:10 - INFO - Training batch: 8
+Iterating through train loader: 8it [04:54, 36.96s/it]2025-08-13 04:11 - INFO - Training batch: 9
+Iterating through train loader: 9it [05:31, 37.11s/it]2025-08-13 04:11 - INFO - Training batch: 10
+Iterating through train loader: 10it [06:08, 36.86s/it]2025-08-13 04:12 - INFO - Training batch: 11
+Iterating through train loader: 11it [06:42, 36.13s/it]2025-08-13 04:13 - INFO - Training batch: 12
+Iterating through train loader: 12it [07:20, 36.63s/it]2025-08-13 04:13 - INFO - Training batch: 13
+Iterating through train loader: 13it [08:02, 38.17s/it]2025-08-13 04:14 - INFO - Training batch: 14
+Iterating through train loader: 14it [08:40, 38.24s/it]2025-08-13 04:15 - INFO - Training batch: 15
+Iterating through train loader: 15it [09:19, 38.34s/it]2025-08-13 04:15 - INFO - Training batch: 16
+Iterating through train loader: 16it [09:57, 38.25s/it]2025-08-13 04:16 - INFO - Training batch: 17
+Iterating through train loader: 17it [10:36, 38.49s/it]2025-08-13 04:16 - INFO - Training batch: 18
+Iterating through train loader: 18it [11:11, 37.68s/it]2025-08-13 04:17 - INFO - Training batch: 19
+Iterating through train loader: 19it [11:52, 38.48s/it]2025-08-13 04:18 - INFO - Training batch: 20
+Iterating through train loader: 20it [12:27, 37.50s/it]2025-08-13 04:18 - INFO - Training batch: 21
+Iterating through train loader: 21it [13:04, 37.36s/it]2025-08-13 04:19 - INFO - Training batch: 22
+Iterating through train loader: 22it [13:42, 37.47s/it]2025-08-13 04:20 - INFO - Training batch: 23
+Iterating through train loader: 23it [14:16, 36.59s/it]2025-08-13 04:20 - INFO - Training batch: 24
+Iterating through train loader: 24it [14:58, 37.97s/it]2025-08-13 04:21 - INFO - Training batch: 25
+Iterating through train loader: 25it [15:41, 39.59s/it]2025-08-13 04:22 - INFO - Training batch: 26
+Iterating through train loader: 26it [16:18, 38.76s/it]2025-08-13 04:22 - INFO - Training batch: 27
+Iterating through train loader: 27it [16:51, 37.25s/it]2025-08-13 04:23 - INFO - Training batch: 28
+Iterating through train loader: 28it [17:25, 36.16s/it]2025-08-13 04:23 - INFO - Training batch: 29
+Iterating through train loader: 29it [18:00, 35.81s/it]2025-08-13 04:24 - INFO - Training batch: 30
+Iterating through train loader: 30it [18:37, 36.13s/it]2025-08-13 04:24 - INFO - Training batch: 31
+Iterating through train loader: 31it [19:11, 35.65s/it]2025-08-13 04:25 - INFO - Training batch: 32
+Iterating through train loader: 32it [19:47, 35.70s/it]2025-08-13 04:26 - INFO - Training batch: 33
+Iterating through train loader: 33it [20:22, 35.51s/it]2025-08-13 04:26 - INFO - Training batch: 34
+Iterating through train loader: 34it [20:58, 35.45s/it]2025-08-13 04:27 - INFO - Training batch: 35
+Iterating through train loader: 35it [21:35, 36.10s/it]2025-08-13 04:27 - INFO - Training batch: 36
+Iterating through train loader: 36it [22:14, 36.96s/it]2025-08-13 04:28 - INFO - Training batch: 37
+Iterating through train loader: 37it [22:48, 35.96s/it]2025-08-13 04:29 - INFO - Training batch: 38
+Iterating through train loader: 38it [23:25, 36.34s/it]2025-08-13 04:29 - INFO - Training batch: 39
+Iterating through train loader: 39it [23:59, 35.76s/it]2025-08-13 04:30 - INFO - Training batch: 40
+Iterating through train loader: 40it [24:37, 36.29s/it]2025-08-13 04:31 - INFO - Training batch: 41
+Iterating through train loader: 41it [25:19, 37.88s/it]2025-08-13 04:31 - INFO - Training batch: 42
+Iterating through train loader: 42it [25:57, 38.06s/it]2025-08-13 04:32 - INFO - Training batch: 43
+Iterating through train loader: 43it [26:30, 36.42s/it]2025-08-13 04:32 - INFO - Training batch: 44
+Iterating through train loader: 44it [27:06, 36.27s/it]2025-08-13 04:33 - INFO - Training batch: 45
+Iterating through train loader: 45it [27:41, 36.02s/it]2025-08-13 04:34 - INFO - Training batch: 46
+Iterating through train loader: 46it [28:16, 35.66s/it]2025-08-13 04:34 - INFO - Training batch: 47
+Iterating through train loader: 47it [28:54, 36.29s/it]2025-08-13 04:35 - INFO - Training batch: 48
+Iterating through train loader: 48it [29:27, 35.55s/it]2025-08-13 04:35 - INFO - Training batch: 49
+Iterating through train loader: 49it [30:03, 35.67s/it]2025-08-13 04:36 - INFO - Training batch: 50
+Iterating through train loader: 50it [30:44, 37.20s/it]2025-08-13 04:37 - INFO - Training batch: 51
+Iterating through train loader: 51it [31:21, 37.01s/it]2025-08-13 04:37 - INFO - Training batch: 52
+Iterating through train loader: 52it [31:58, 37.08s/it]2025-08-13 04:38 - INFO - Training batch: 53
+Iterating through train loader: 53it [32:39, 38.28s/it]2025-08-13 04:39 - INFO - Training batch: 54
+Iterating through train loader: 54it [33:16, 37.99s/it]2025-08-13 04:39 - INFO - Training batch: 55
+Iterating through train loader: 55it [33:52, 37.23s/it]2025-08-13 04:40 - INFO - Training batch: 56
+Iterating through train loader: 56it [34:31, 37.71s/it]2025-08-13 04:40 - INFO - Training batch: 57
+Iterating through train loader: 57it [35:10, 38.27s/it]2025-08-13 04:41 - INFO - Training batch: 58
+Iterating through train loader: 58it [35:45, 37.17s/it]2025-08-13 04:42 - INFO - Training batch: 59
+Iterating through train loader: 59it [36:21, 36.77s/it]2025-08-13 04:42 - INFO - Training batch: 60
+Iterating through train loader: 60it [36:56, 36.21s/it]2025-08-13 04:43 - INFO - Training batch: 61
+Iterating through train loader: 61it [37:27, 34.76s/it]2025-08-13 04:43 - INFO - Training batch: 62
+Iterating through train loader: 62it [38:07, 36.46s/it]2025-08-13 04:44 - INFO - Training batch: 63
+Iterating through train loader: 63it [38:43, 36.15s/it]2025-08-13 04:45 - INFO - Training batch: 64
+Iterating through train loader: 64it [39:21, 36.63s/it]2025-08-13 04:45 - INFO - Training batch: 65
+Iterating through train loader: 65it [39:56, 36.24s/it]2025-08-13 04:46 - INFO - Training batch: 66
+Iterating through train loader: 66it [40:30, 35.64s/it]2025-08-13 04:46 - INFO - Training batch: 67
+Iterating through train loader: 67it [41:07, 35.97s/it]2025-08-13 04:47 - INFO - Training batch: 68
+Iterating through train loader: 68it [41:41, 35.41s/it]2025-08-13 04:48 - INFO - Training batch: 69
+Iterating through train loader: 69it [42:19, 36.06s/it]2025-08-13 04:48 - INFO - Training batch: 70
+Iterating through train loader: 70it [42:56, 36.51s/it]2025-08-13 04:49 - INFO - Training batch: 71
+Iterating through train loader: 71it [43:33, 36.66s/it]2025-08-13 04:49 - INFO - Training batch: 72
+Iterating through train loader: 72it [44:12, 37.29s/it]2025-08-13 04:50 - INFO - Training batch: 73
+Iterating through train loader: 73it [44:52, 38.25s/it]2025-08-13 04:51 - INFO - Training batch: 74
+Iterating through train loader: 74it [45:30, 38.03s/it]2025-08-13 04:51 - INFO - Training batch: 75
+Iterating through train loader: 75it [46:10, 38.63s/it]2025-08-13 04:52 - INFO - Training batch: 76
+Iterating through train loader: 76it [46:47, 38.11s/it]2025-08-13 04:53 - INFO - Training batch: 77
+Iterating through train loader: 77it [47:20, 36.58s/it]2025-08-13 04:53 - INFO - Training batch: 78
+Iterating through train loader: 78it [47:58, 37.13s/it]2025-08-13 04:54 - INFO - Training batch: 79
+Iterating through train loader: 79it [48:34, 36.63s/it]2025-08-13 04:54 - INFO - Training batch: 80
+Iterating through train loader: 80it [49:09, 36.19s/it]2025-08-13 04:55 - INFO - Training batch: 81
+Iterating through train loader: 81it [49:48, 37.19s/it]2025-08-13 04:56 - INFO - Training batch: 82
+Iterating through train loader: 82it [50:25, 37.13s/it]2025-08-13 04:56 - INFO - Training batch: 83
+Iterating through train loader: 83it [51:04, 37.51s/it]2025-08-13 04:57 - INFO - Training batch: 84
+Iterating through train loader: 84it [51:39, 36.95s/it]2025-08-13 04:58 - INFO - Training batch: 85
+Iterating through train loader: 85it [52:15, 36.50s/it]2025-08-13 04:58 - INFO - Training batch: 86
+Iterating through train loader: 86it [52:50, 36.16s/it]2025-08-13 04:59 - INFO - Training batch: 87
+Iterating through train loader: 87it [53:21, 34.58s/it]2025-08-13 04:59 - INFO - Training batch: 88
+Iterating through train loader: 88it [54:00, 35.96s/it]2025-08-13 05:00 - INFO - Training batch: 89
+Iterating through train loader: 89it [54:34, 35.29s/it]2025-08-13 05:00 - INFO - Training batch: 90
+Iterating through train loader: 90it [55:13, 36.41s/it]2025-08-13 05:01 - INFO - Training batch: 91
+Iterating through train loader: 91it [55:54, 37.78s/it]2025-08-13 05:02 - INFO - Training batch: 92
+Iterating through train loader: 92it [56:31, 37.56s/it]2025-08-13 05:02 - INFO - Training batch: 93
+Iterating through train loader: 93it [57:08, 37.36s/it]2025-08-13 05:03 - INFO - Training batch: 94
+Iterating through train loader: 94it [57:49, 38.58s/it]2025-08-13 05:04 - INFO - Training batch: 95
+Iterating through train loader: 95it [58:27, 38.28s/it]2025-08-13 05:04 - INFO - Training batch: 96
+Iterating through train loader: 96it [59:04, 37.76s/it]2025-08-13 05:05 - INFO - Training batch: 97
+Iterating through train loader: 97it [59:39, 37.15s/it]2025-08-13 05:06 - INFO - Training batch: 98
+Iterating through train loader: 98it [1:00:10, 35.38s/it]2025-08-13 05:06 - INFO - Training batch: 99
+Iterating through train loader: 99it [1:00:49, 36.26s/it]2025-08-13 05:07 - INFO - Training batch: 100
+Iterating through train loader: 100it [1:01:22, 35.44s/it]2025-08-13 05:07 - INFO - Training batch: 101
+Iterating through train loader: 101it [1:01:57, 35.13s/it]2025-08-13 05:08 - INFO - Training batch: 102
+Iterating through train loader: 102it [1:02:33, 35.44s/it]2025-08-13 05:08 - INFO - Training batch: 103
+Iterating through train loader: 103it [1:03:09, 35.68s/it]2025-08-13 05:09 - INFO - Training batch: 104
+Iterating through train loader: 104it [1:03:49, 36.86s/it]2025-08-13 05:10 - INFO - Training batch: 105
+Iterating through train loader: 105it [1:04:26, 36.88s/it]2025-08-13 05:10 - INFO - Training batch: 106
+Iterating through train loader: 106it [1:05:05, 37.70s/it]2025-08-13 05:11 - INFO - Training batch: 107
+Iterating through train loader: 107it [1:05:41, 37.23s/it]2025-08-13 05:12 - INFO - Training batch: 108
+Iterating through train loader: 108it [1:06:21, 38.03s/it]2025-08-13 05:12 - INFO - Training batch: 109
+Iterating through train loader: 109it [1:06:56, 36.92s/it]2025-08-13 05:13 - INFO - Training batch: 110
+Iterating through train loader: 110it [1:07:33, 37.16s/it]2025-08-13 05:13 - INFO - Training batch: 111
+Iterating through train loader: 111it [1:08:09, 36.68s/it]2025-08-13 05:14 - INFO - Training batch: 112
+Iterating through train loader: 112it [1:08:49, 37.67s/it]2025-08-13 05:15 - INFO - Training batch: 113
+Iterating through train loader: 113it [1:09:26, 37.61s/it]2025-08-13 05:15 - INFO - Training batch: 114
+Iterating through train loader: 114it [1:10:02, 36.98s/it]2025-08-13 05:16 - INFO - Training batch: 115
+Iterating through train loader: 115it [1:10:38, 36.82s/it]2025-08-13 05:17 - INFO - Training batch: 116
+Iterating through train loader: 116it [1:11:15, 36.68s/it]2025-08-13 05:17 - INFO - Training batch: 117
+Iterating through train loader: 117it [1:11:48, 35.56s/it]2025-08-13 05:18 - INFO - Training batch: 118
+Iterating through train loader: 118it [1:12:23, 35.57s/it]2025-08-13 05:18 - INFO - Training batch: 119
+Iterating through train loader: 119it [1:12:57, 34.92s/it]2025-08-13 05:19 - INFO - Training batch: 120
+Iterating through train loader: 120it [1:13:34, 35.58s/it]2025-08-13 05:19 - INFO - Training batch: 121
+Iterating through train loader: 121it [1:14:09, 35.36s/it]2025-08-13 05:20 - INFO - Training batch: 122
+Iterating through train loader: 122it [1:14:47, 36.26s/it]2025-08-13 05:21 - INFO - Training batch: 123
+Iterating through train loader: 123it [1:15:22, 35.87s/it]2025-08-13 05:21 - INFO - Training batch: 124
+Iterating through train loader: 124it [1:15:58, 35.90s/it]2025-08-13 05:22 - INFO - Training batch: 125
+Iterating through train loader: 125it [1:16:34, 35.82s/it]2025-08-13 05:22 - INFO - Training batch: 126
+Iterating through train loader: 126it [1:17:10, 36.15s/it]2025-08-13 05:23 - INFO - Training batch: 127
+Iterating through train loader: 127it [1:17:49, 36.85s/it]2025-08-13 05:24 - INFO - Training batch: 128
+Iterating through train loader: 128it [1:18:29, 37.82s/it]2025-08-13 05:24 - INFO - Training batch: 129
+Iterating through train loader: 129it [1:19:08, 38.16s/it]2025-08-13 05:25 - INFO - Training batch: 130
+Iterating through train loader: 130it [1:19:47, 38.54s/it]2025-08-13 05:26 - INFO - Training batch: 131
+Iterating through train loader: 131it [1:20:25, 38.15s/it]2025-08-13 05:26 - INFO - Training batch: 132
+Iterating through train loader: 132it [1:21:03, 38.11s/it]2025-08-13 05:27 - INFO - Training batch: 133
+Iterating through train loader: 133it [1:21:44, 39.09s/it]2025-08-13 05:28 - INFO - Training batch: 134
+Iterating through train loader: 134it [1:22:18, 37.43s/it]2025-08-13 05:28 - INFO - Training batch: 135
+Iterating through train loader: 135it [1:22:55, 37.38s/it]2025-08-13 05:29 - INFO - Training batch: 136
+Iterating through train loader: 136it [1:23:30, 36.80s/it]2025-08-13 05:29 - INFO - Training batch: 137
+Iterating through train loader: 137it [1:24:05, 36.26s/it]2025-08-13 05:30 - INFO - Training batch: 138
+Iterating through train loader: 138it [1:24:42, 36.28s/it]2025-08-13 05:31 - INFO - Training batch: 139
+Iterating through train loader: 139it [1:25:21, 37.26s/it]2025-08-13 05:31 - INFO - Training batch: 140
+Iterating through train loader: 140it [1:25:56, 36.59s/it]2025-08-13 05:32 - INFO - Training batch: 141
+Iterating through train loader: 141it [1:26:31, 35.93s/it]2025-08-13 05:32 - INFO - Training batch: 142
+Iterating through train loader: 142it [1:27:10, 36.89s/it]2025-08-13 05:33 - INFO - Training batch: 143
+Iterating through train loader: 143it [1:27:46, 36.60s/it]2025-08-13 05:34 - INFO - Training batch: 144
+Iterating through train loader: 144it [1:28:22, 36.50s/it]2025-08-13 05:34 - INFO - Training batch: 145
+Iterating through train loader: 145it [1:28:57, 36.18s/it]2025-08-13 05:35 - INFO - Training batch: 146
+Iterating through train loader: 146it [1:29:37, 37.13s/it]2025-08-13 05:35 - INFO - Training batch: 147
+Iterating through train loader: 147it [1:30:14, 37.27s/it]2025-08-13 05:36 - INFO - Training batch: 148
+Iterating through train loader: 148it [1:30:48, 36.08s/it]2025-08-13 05:37 - INFO - Training batch: 149
+Iterating through train loader: 149it [1:31:19, 34.76s/it]2025-08-13 05:37 - INFO - Training batch: 150
+Iterating through train loader: 150it [1:31:55, 34.94s/it]2025-08-13 05:38 - INFO - Training batch: 151
+Iterating through train loader: 151it [1:32:30, 35.05s/it]2025-08-13 05:38 - INFO - Training batch: 152
+Iterating through train loader: 152it [1:33:05, 35.13s/it]2025-08-13 05:39 - INFO - Training batch: 153
+Iterating through train loader: 153it [1:33:41, 35.40s/it]2025-08-13 05:40 - INFO - Training batch: 154
+Iterating through train loader: 154it [1:34:17, 35.60s/it]2025-08-13 05:40 - INFO - Training batch: 155
+Iterating through train loader: 155it [1:34:57, 36.94s/it]2025-08-13 05:41 - INFO - Training batch: 156
+Iterating through train loader: 156it [1:35:33, 36.51s/it]2025-08-13 05:41 - INFO - Training batch: 157
+Iterating through train loader: 157it [1:36:07, 35.74s/it]2025-08-13 05:42 - INFO - Training batch: 158
+Iterating through train loader: 158it [1:36:42, 35.57s/it]2025-08-13 05:43 - INFO - Training batch: 159
+Iterating through train loader: 159it [1:37:21, 36.70s/it]2025-08-13 05:43 - INFO - Training batch: 160
+Iterating through train loader: 160it [1:37:59, 36.88s/it]2025-08-13 05:44 - INFO - Training batch: 161
+Iterating through train loader: 161it [1:38:37, 37.28s/it]2025-08-13 05:44 - INFO - Training batch: 162
+Iterating through train loader: 162it [1:39:10, 36.03s/it]2025-08-13 05:45 - INFO - Training batch: 163
+Iterating through train loader: 163it [1:39:48, 36.48s/it]2025-08-13 05:46 - INFO - Training batch: 164
+Iterating through train loader: 164it [1:40:24, 36.53s/it]2025-08-13 05:46 - INFO - Training batch: 165
+Iterating through train loader: 165it [1:41:00, 36.46s/it]2025-08-13 05:47 - INFO - Training batch: 166
+Iterating through train loader: 166it [1:41:37, 36.47s/it]2025-08-13 05:47 - INFO - Training batch: 167
+Iterating through train loader: 167it [1:42:13, 36.45s/it]2025-08-13 05:48 - INFO - Training batch: 168
+Iterating through train loader: 168it [1:42:52, 37.03s/it]2025-08-13 05:49 - INFO - Training batch: 169
+Iterating through train loader: 169it [1:43:23, 35.40s/it]2025-08-13 05:49 - INFO - Training batch: 170
+Iterating through train loader: 170it [1:43:58, 35.14s/it]2025-08-13 05:50 - INFO - Training batch: 171
+Iterating through train loader: 171it [1:44:34, 35.46s/it]2025-08-13 05:50 - INFO - Training batch: 172
+Iterating through train loader: 172it [1:45:09, 35.33s/it]2025-08-13 05:51 - INFO - Training batch: 173
+Iterating through train loader: 173it [1:45:48, 36.33s/it]2025-08-13 05:52 - INFO - Training batch: 174
+Iterating through train loader: 174it [1:46:25, 36.47s/it]2025-08-13 05:52 - INFO - Training batch: 175
+Iterating through train loader: 175it [1:47:00, 36.14s/it]2025-08-13 05:53 - INFO - Training batch: 176
+Iterating through train loader: 176it [1:47:33, 35.32s/it]2025-08-13 05:53 - INFO - Training batch: 177
+Iterating through train loader: 177it [1:48:08, 35.25s/it]2025-08-13 05:54 - INFO - Training batch: 178
+Iterating through train loader: 178it [1:48:44, 35.26s/it]2025-08-13 05:55 - INFO - Training batch: 179
+Iterating through train loader: 179it [1:49:16, 34.50s/it]2025-08-13 05:55 - INFO - Training batch: 180
+Iterating through train loader: 180it [1:49:49, 33.91s/it]2025-08-13 05:56 - INFO - Training batch: 181
+Iterating through train loader: 181it [1:50:23, 34.03s/it]2025-08-13 05:56 - INFO - Training batch: 182
+Iterating through train loader: 182it [1:50:58, 34.38s/it]2025-08-13 05:57 - INFO - Training batch: 183
+Iterating through train loader: 183it [1:51:35, 35.09s/it]2025-08-13 05:57 - INFO - Training batch: 184
+Iterating through train loader: 184it [1:52:13, 36.04s/it]2025-08-13 05:58 - INFO - Training batch: 185
+Iterating through train loader: 185it [1:52:45, 34.81s/it]2025-08-13 05:59 - INFO - Training batch: 186
+Iterating through train loader: 186it [1:53:22, 35.30s/it]2025-08-13 05:59 - INFO - Training batch: 187
+Iterating through train loader: 187it [1:54:00, 36.15s/it]2025-08-13 06:00 - INFO - Training batch: 188
+Iterating through train loader: 188it [1:54:36, 36.13s/it]2025-08-13 06:00 - INFO - Training batch: 189
+Iterating through train loader: 189it [1:55:13, 36.35s/it]2025-08-13 06:01 - INFO - Training batch: 190
+Iterating through train loader: 190it [1:55:47, 35.57s/it]2025-08-13 06:02 - INFO - Training batch: 191
+Iterating through train loader: 191it [1:56:26, 36.63s/it]2025-08-13 06:02 - INFO - Training batch: 192
+Iterating through train loader: 192it [1:57:03, 36.77s/it]2025-08-13 06:03 - INFO - Training batch: 193
+Iterating through train loader: 193it [1:57:41, 37.03s/it]2025-08-13 06:04 - INFO - Training batch: 194
+Iterating through train loader: 194it [1:58:16, 36.54s/it]2025-08-13 06:04 - INFO - Training batch: 195
+Iterating through train loader: 195it [1:58:52, 36.53s/it]2025-08-13 06:05 - INFO - Training batch: 196
+Iterating through train loader: 196it [1:59:29, 36.59s/it]2025-08-13 06:05 - INFO - Training batch: 197
+Iterating through train loader: 197it [2:00:07, 36.86s/it]2025-08-13 06:06 - INFO - Training batch: 198
+Iterating through train loader: 198it [2:00:40, 35.90s/it]2025-08-13 06:07 - INFO - Training batch: 199
+Iterating through train loader: 199it [2:01:20, 37.19s/it]2025-08-13 06:07 - INFO - Training batch: 200
+Iterating through train loader: 200it [2:02:34, 48.08s/it]2025-08-13 06:08 - INFO - Training batch: 201
+Iterating through train loader: 201it [2:03:47, 55.55s/it]2025-08-13 06:10 - INFO - Training batch: 202
+Iterating through train loader: 202it [2:04:49, 57.52s/it]2025-08-13 06:11 - INFO - Training batch: 203
+Iterating through train loader: 203it [2:06:07, 63.60s/it]2025-08-13 06:12 - INFO - Training batch: 204
+Iterating through train loader: 204it [2:07:11, 63.87s/it]2025-08-13 06:13 - INFO - Training batch: 205
+Iterating through train loader: 205it [2:08:17, 64.50s/it]2025-08-13 06:14 - INFO - Training batch: 206
+Iterating through train loader: 206it [2:09:29, 66.68s/it]2025-08-13 06:15 - INFO - Training batch: 207
+Iterating through train loader: 207it [2:10:31, 65.36s/it]2025-08-13 06:16 - INFO - Training batch: 208
+Iterating through train loader: 208it [2:11:39, 65.96s/it]2025-08-13 06:18 - INFO - Training batch: 209
+Iterating through train loader: 209it [2:12:41, 64.74s/it]2025-08-13 06:19 - INFO - Training batch: 210
+Iterating through train loader: 210it [2:13:52, 66.63s/it]2025-08-13 06:20 - INFO - Training batch: 211
+Iterating through train loader: 211it [2:15:09, 69.71s/it]2025-08-13 06:21 - INFO - Training batch: 212
+Iterating through train loader: 212it [2:16:21, 70.48s/it]2025-08-13 06:22 - INFO - Training batch: 213
+Iterating through train loader: 213it [2:17:22, 67.75s/it]2025-08-13 06:23 - INFO - Training batch: 214
+Iterating through train loader: 214it [2:18:39, 70.55s/it]2025-08-13 06:25 - INFO - Training batch: 215
+Iterating through train loader: 215it [2:19:47, 69.55s/it]2025-08-13 06:26 - INFO - Training batch: 216
+Iterating through train loader: 216it [2:20:54, 68.85s/it]2025-08-13 06:27 - INFO - Training batch: 217
+Iterating through train loader: 217it [2:22:00, 68.13s/it]2025-08-13 06:28 - INFO - Training batch: 218
+Iterating through train loader: 218it [2:23:34, 75.85s/it]2025-08-13 06:29 - INFO - Training batch: 219
+Iterating through train loader: 219it [2:25:33, 88.84s/it]2025-08-13 06:31 - INFO - Training batch: 220
+Iterating through train loader: 220it [2:27:23, 95.09s/it]2025-08-13 06:33 - INFO - Training batch: 221
+Iterating through train loader: 221it [2:28:32, 87.20s/it]2025-08-13 06:34 - INFO - Training batch: 222
+Iterating through train loader: 222it [2:29:30, 78.48s/it]2025-08-13 06:35 - INFO - Training batch: 223
+Iterating through train loader: 223it [2:30:33, 73.75s/it]2025-08-13 06:36 - INFO - Training batch: 224
+Iterating through train loader: 224it [2:31:41, 72.06s/it]2025-08-13 06:38 - INFO - Training batch: 225
+Iterating through train loader: 225it [2:32:53, 72.22s/it]2025-08-13 06:39 - INFO - Training batch: 226
+Iterating through train loader: 226it [2:34:03, 71.39s/it]2025-08-13 06:40 - INFO - Training batch: 227
+Iterating through train loader: 227it [2:35:07, 69.19s/it]2025-08-13 06:41 - INFO - Training batch: 228
+Iterating through train loader: 228it [2:36:14, 68.73s/it]2025-08-13 06:42 - INFO - Training batch: 229
+Iterating through train loader: 229it [2:37:28, 70.25s/it]2025-08-13 06:43 - INFO - Training batch: 230
+Iterating through train loader: 230it [2:38:38, 70.11s/it]2025-08-13 06:45 - INFO - Training batch: 231
+Iterating through train loader: 231it [2:39:48, 70.08s/it]2025-08-13 06:46 - INFO - Training batch: 232
+Iterating through train loader: 232it [2:41:00, 70.64s/it]2025-08-13 06:47 - INFO - Training batch: 233
+Iterating through train loader: 233it [2:42:04, 68.78s/it]2025-08-13 06:48 - INFO - Training batch: 234
+Iterating through train loader: 234it [2:43:14, 68.91s/it]2025-08-13 06:49 - INFO - Training batch: 235
+Iterating through train loader: 235it [2:44:18, 67.52s/it]2025-08-13 06:50 - INFO - Training batch: 236
+Iterating through train loader: 236it [2:45:31, 69.30s/it]2025-08-13 06:51 - INFO - Training batch: 237
+Iterating through train loader: 237it [2:46:36, 67.86s/it]2025-08-13 06:52 - INFO - Training batch: 238
+Iterating through train loader: 238it [2:47:38, 66.09s/it]2025-08-13 06:54 - INFO - Training batch: 239
+Iterating through train loader: 239it [2:48:48, 67.20s/it]2025-08-13 06:55 - INFO - Training batch: 240
+Iterating through train loader: 240it [2:50:01, 69.19s/it]2025-08-13 06:56 - INFO - Training batch: 241
+Iterating through train loader: 241it [2:51:11, 69.44s/it]2025-08-13 06:57 - INFO - Training batch: 242
+Iterating through train loader: 242it [2:52:21, 69.54s/it]2025-08-13 06:58 - INFO - Training batch: 243
+Iterating through train loader: 243it [2:53:29, 68.94s/it]2025-08-13 06:59 - INFO - Training batch: 244
+Iterating through train loader: 244it [2:54:34, 67.92s/it]2025-08-13 07:00 - INFO - Training batch: 245
+Iterating through train loader: 245it [2:55:41, 67.52s/it]2025-08-13 07:02 - INFO - Training batch: 246
+Iterating through train loader: 246it [2:56:46, 66.88s/it]2025-08-13 07:03 - INFO - Training batch: 247
+Iterating through train loader: 247it [2:57:55, 67.43s/it]2025-08-13 07:04 - INFO - Training batch: 248
+Iterating through train loader: 248it [2:58:58, 66.18s/it]2025-08-13 07:05 - INFO - Training batch: 249
+Iterating through train loader: 249it [3:00:09, 67.54s/it]2025-08-13 07:06 - INFO - Training batch: 250
+Iterating through train loader: 250it [3:01:26, 70.39s/it]2025-08-13 07:07 - INFO - Training batch: 251
+Iterating through train loader: 251it [3:01:47, 55.72s/it]Iterating through train loader: 251it [3:01:47, 43.46s/it]
+Evaluating val loader: 0it [00:00, ?it/s]2025-08-13 07:08 - INFO - Evaluate batch: 1
+2025-08-13 07:11 - INFO - Logging at epoch 2
+Evaluating val loader: 1it [03:08, 188.14s/it]2025-08-13 07:11 - INFO - Evaluate batch: 2
+2025-08-13 07:14 - INFO - Logging at epoch 2
+Evaluating val loader: 2it [06:16, 188.17s/it]2025-08-13 07:14 - INFO - Evaluate batch: 3
+2025-08-13 07:17 - INFO - Logging at epoch 2
+Evaluating val loader: 3it [09:28, 189.92s/it]2025-08-13 07:17 - INFO - Evaluate batch: 4
+2025-08-13 07:21 - INFO - Logging at epoch 2
+Evaluating val loader: 4it [12:50, 194.60s/it]2025-08-13 07:21 - INFO - Evaluate batch: 5
+2025-08-13 07:24 - INFO - Logging at epoch 2
+Evaluating val loader: 5it [15:57, 192.06s/it]2025-08-13 07:24 - INFO - Evaluate batch: 6
+2025-08-13 07:27 - INFO - Logging at epoch 2
+Evaluating val loader: 6it [19:06, 190.82s/it]2025-08-13 07:27 - INFO - Evaluate batch: 7
+2025-08-13 07:30 - INFO - Logging at epoch 2
+Evaluating val loader: 7it [22:14, 190.08s/it]2025-08-13 07:30 - INFO - Evaluate batch: 8
+2025-08-13 07:33 - INFO - Logging at epoch 2
+Evaluating val loader: 8it [25:22, 189.52s/it]2025-08-13 07:33 - INFO - Evaluate batch: 9
+2025-08-13 07:36 - INFO - Logging at epoch 2
+Evaluating val loader: 9it [28:29, 188.58s/it]2025-08-13 07:36 - INFO - Evaluate batch: 10
+2025-08-13 07:39 - INFO - Logging at epoch 2
+Evaluating val loader: 10it [31:37, 188.40s/it]2025-08-13 07:39 - INFO - Evaluate batch: 11
+2025-08-13 07:42 - INFO - Logging at epoch 2
+Evaluating val loader: 11it [34:47, 188.95s/it]2025-08-13 07:42 - INFO - Evaluate batch: 12
+2025-08-13 07:46 - INFO - Logging at epoch 2
+Evaluating val loader: 12it [37:56, 189.00s/it]2025-08-13 07:46 - INFO - Evaluate batch: 13
+2025-08-13 07:49 - INFO - Logging at epoch 2
+Evaluating val loader: 13it [41:06, 189.26s/it]2025-08-13 07:49 - INFO - Evaluate batch: 14
+2025-08-13 07:52 - INFO - Logging at epoch 2
+Evaluating val loader: 14it [44:16, 189.34s/it]2025-08-13 07:52 - INFO - Evaluate batch: 15
+2025-08-13 07:55 - INFO - Logging at epoch 2
+Evaluating val loader: 15it [47:26, 189.52s/it]2025-08-13 07:55 - INFO - Evaluate batch: 16
+2025-08-13 07:58 - INFO - Logging at epoch 2
+Evaluating val loader: 16it [50:34, 189.30s/it]2025-08-13 07:58 - INFO - Evaluate batch: 17
+2025-08-13 08:01 - INFO - Logging at epoch 2
+Evaluating val loader: 17it [53:43, 189.11s/it]2025-08-13 08:01 - INFO - Evaluate batch: 18
+2025-08-13 08:05 - INFO - Logging at epoch 2
+Evaluating val loader: 18it [57:44, 204.81s/it]2025-08-13 08:05 - INFO - Evaluate batch: 19
+2025-08-13 08:08 - INFO - Logging at epoch 2
+Evaluating val loader: 19it [1:00:17, 189.14s/it]2025-08-13 08:08 - INFO - Evaluate batch: 20
+2025-08-13 08:11 - INFO - Logging at epoch 2
+Evaluating val loader: 20it [1:03:25, 188.88s/it]2025-08-13 08:11 - INFO - Evaluate batch: 21
+2025-08-13 08:14 - INFO - Logging at epoch 2
+Evaluating val loader: 21it [1:06:35, 189.12s/it]2025-08-13 08:14 - INFO - Evaluate batch: 22
+2025-08-13 08:17 - INFO - Logging at epoch 2
+Evaluating val loader: 22it [1:09:41, 188.04s/it]2025-08-13 08:17 - INFO - Evaluate batch: 23
+2025-08-13 08:20 - INFO - Logging at epoch 2
+Evaluating val loader: 23it [1:12:48, 187.73s/it]2025-08-13 08:20 - INFO - Evaluate batch: 24
+2025-08-13 08:24 - INFO - Logging at epoch 2
+Evaluating val loader: 24it [1:15:54, 187.43s/it]2025-08-13 08:24 - INFO - Evaluate batch: 25
+2025-08-13 08:27 - INFO - Logging at epoch 2
+Evaluating val loader: 25it [1:19:02, 187.63s/it]2025-08-13 08:27 - INFO - Evaluate batch: 26
+2025-08-13 08:30 - INFO - Logging at epoch 2
+Evaluating val loader: 26it [1:22:12, 188.25s/it]2025-08-13 08:30 - INFO - Evaluate batch: 27
+2025-08-13 08:33 - INFO - Logging at epoch 2
+Evaluating val loader: 27it [1:25:22, 188.68s/it]2025-08-13 08:33 - INFO - Evaluate batch: 28
+2025-08-13 08:36 - INFO - Logging at epoch 2
+Evaluating val loader: 28it [1:28:30, 188.41s/it]2025-08-13 08:36 - INFO - Evaluate batch: 29
+2025-08-13 08:39 - INFO - Logging at epoch 2
+Evaluating val loader: 29it [1:31:39, 188.79s/it]2025-08-13 08:39 - INFO - Evaluate batch: 30
+2025-08-13 08:42 - INFO - Logging at epoch 2
+Evaluating val loader: 30it [1:34:49, 189.09s/it]2025-08-13 08:43 - INFO - Evaluate batch: 31
+2025-08-13 08:46 - INFO - Logging at epoch 2
+Evaluating val loader: 31it [1:38:00, 189.80s/it]2025-08-13 08:46 - INFO - Evaluate batch: 32
+2025-08-13 08:47 - INFO - Logging at epoch 2
+Evaluating val loader: 32it [1:38:57, 149.70s/it]Evaluating val loader: 32it [1:38:57, 185.53s/it]
+2025-08-13 08:47 - INFO - || Metrics Calculation || val split || epoch: 2 || loss: 8.0234375
+2025-08-13 08:47 - INFO - Final scores:
+{'Bleu_1': 0.005924039330470749, 'Bleu_2': 8.30868973191103e-12, 'Bleu_3': 9.404205692231411e-15, 'Bleu_4': 3.191206131834541e-16, 'METEOR': 0.014460630842236763, 'ROUGE_L': np.float64(0.006517714403079521), 'CIDEr': np.float64(0.0008054675763711314)}
+2025-08-13 08:47 - INFO - Save dir not exist
+Traceback (most recent call last):
+  File "/data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/main.py", line 25, in <module>
+    trainer.train()
+  File "/data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/utils/trainer.py", line 254, in train
+    self.save_model(
+  File "/data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/utils/trainer.py", line 339, in save_model
+    raise FileNotFoundError
+FileNotFoundError

@@ -1,4 +1,5 @@
 
+from bisect import bisect
 def get_optimizer_parameters(model, config):
     parameters = model.parameters()
 

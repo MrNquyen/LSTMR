@@ -2,11 +2,12 @@ import torch
 from torch import nn
 from icecream import ic
 import torch.nn.functional as F
-
+from utils.registry import registry
 
 class LSTMAttention(nn.Module):
     def __init__(self, input_dim, hidden_size):
         super().__init__()
+        self.device = registry.get_args("device")
         self._mask_value = -1e9
         self.activation = nn.Tanh()
         self.softmax = nn.Softmax()
@@ -52,7 +53,7 @@ class LSTMAttention(nn.Module):
                 self.hidden_state_linear(prev_hidden_state.unsqueeze(1)) + \
                 self.input_linear(input_features)
             )
-        )
+        ).to(self.device)
         # extended_attention_mask = (1.0 - mask) * -10000.0
         # extended_attention_mask = extended_attention_mask
         # scores = scores + extended_attention_mask

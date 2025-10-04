@@ -66,7 +66,7 @@ class WordEmbedding(nn.Module):
         roberta_model = AutoModel.from_pretrained(
             self.roberta_model_name, 
             config=roberta_config
-        )
+        ).to(self.device)
         roberta_model.gradient_checkpointing_enable()
         self.model = roberta_model
         self.tokenizer = AutoTokenizer.from_pretrained(self.roberta_model_name)
@@ -242,6 +242,28 @@ class OCREmbedding(BaseEmbedding):
             new_boxes.append(torch.tensor([x1, x2, x3, x4, y1, y2, y3, y4]))
         new_boxes = torch.stack(new_boxes).to(self.device)
         return new_boxes
+    
+
+    def convert_box_torch(self, ocr_boxes):
+        """
+            Function:
+            ---------
+            This module convert boxes from (1) - (2)
+                (1) [x_min, y_min, x_max, y_max] format 
+                (2) [x1, x2, x3, x4, y1, y2, y3, y4] format 
+
+            Parameters:
+            -----------
+                - ocr_boxes: (BS, N, 4)
+                    + Bounding box for each ocr tokens 
+        """
+        if not isinstance(ocr_boxes, torch.Tensor):
+            ocr_boxes = torch.as_tensor(ocr_boxes, dtype=torch.float16, device=self.device)
+
+        idx = torch.tensor([0, 0, 2, 2, 1, 3, 3, 1], device=ocr_boxes.device)
+        new_convert_boxes = ocr_boxes.index_select(-1, idx)
+        return new_convert_boxes
+
 
 
     def phoc_embedding(self, words: List[str]):
@@ -293,14 +315,13 @@ class OCREmbedding(BaseEmbedding):
         # Finding ocr main
         # ic(self.projection_feat.weight.data)
 
-        convert_ocr_boxes = torch.stack(
-            [self.convert_box(each_ocr_boxes) for each_ocr_boxes in ocr_boxes]
-        ).to(self.device)
+        # convert_ocr_boxes = torch.stack(
+        #     [self.convert_box(each_ocr_boxes) for each_ocr_boxes in ocr_boxes]
+        # ).to(self.device)
+        convert_ocr_boxes = self.convert_box_torch(ocr_boxes)
         fasttext_embed = torch.stack([self.fasttext_embedding(words=tokens) for tokens in ocr_tokens]).to(self.device)
         phoc_embed = torch.stack([self.phoc_embedding(words=tokens) for tokens in ocr_tokens]).to(self.device)
-        ic(ocr_feat.shape)
-        ic(fasttext_embed.shape)
-        ic(phoc_embed.shape)
+
         ocr_main = torch.concat(
             [
                 self.l2norm(ocr_feat),
