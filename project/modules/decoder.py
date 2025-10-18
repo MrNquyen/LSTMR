@@ -30,6 +30,7 @@ class Decoder(DecoderBase):
             hidden_size=self.hidden_size
         )
 
+        self.dropout = nn.Dropout(self.model_config["dropout"])
     def forward(
             self, 
             obj_features,
@@ -58,22 +59,6 @@ class Decoder(DecoderBase):
             input_features=input_features,
             mask=mask
         )
-        # ic(attention_scores)
-        #==== DEBUG ===-
-        # debug_scores = attention_scores.squeeze(-1)  # [B, L]
-        # for b in range(mask.size(0)):
-        #     pad_idx = (mask[b] == 0).nonzero(as_tuple=True)[0]  # indices of pads
-        #     nan_idx = (debug_scores[b].isnan()).nonzero(as_tuple=True)[0]  # NaN positions
-
-        #     if pad_idx.numel() > 0:
-        #         print(f"\nBatch {b} - pad idx: {pad_idx.tolist()}")
-        #         print("Attention scores at pad positions:",
-        #             debug_scores[b, pad_idx].tolist())
-
-        #     if nan_idx.numel() > 0:
-        #         print(f"Batch {b} - NaN at positions: {nan_idx.tolist()}")
-        #         print("NaN values:", debug_scores[b, nan_idx].tolist())
-        #==== DEBUG ===-
 
         prev_hidden_state_attention = input_features * attention_scores
         attended_vector = torch.sum(prev_hidden_state_attention, dim=1)
@@ -89,6 +74,7 @@ class Decoder(DecoderBase):
             cell_inputs,
             (prev_hidden_state, prev_cell_state)
         )
+        ht = self.dropout(ht)
         return ht, ct # Hidden_state, cell_state
 
     

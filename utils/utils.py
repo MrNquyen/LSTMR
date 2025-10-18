@@ -42,3 +42,14 @@ def count_nan(tensor):
     nan_count = nan_mask.sum().item()
     # nan_indices = nan_mask.nonzero(as_tuple=False)
     return nan_count
+
+def check_requires_grad(module, name="module"):
+    trainable, frozen = 0, 0
+    for n, p in module.named_parameters():
+        if p.requires_grad:
+            print(f"[Trainable] {name}.{n}: {tuple(p.shape)}")
+            trainable += 1
+        else:
+            print(f"[Frozen]    {name}.{n}: {tuple(p.shape)}")
+            frozen += 1
+    print(f"\nSummary for {name}: {trainable} trainable / {frozen} frozen parameters\n")

@@ -75,6 +75,7 @@ class LSTMR(nn.Module):
         self.geo_relationship = GeoRelationship()
         self.word_embedding = WordEmbedding()
         self.decoder = Decoder()
+        self.dropout = nn.Dropout(self.model_config["dropout"])
 
     
     def adjust_lr(self):
@@ -140,11 +141,6 @@ class LSTMR(nn.Module):
             ocr_boxes=batch["list_ocr_boxes"],
             ocr_tokens=batch["list_ocr_tokens"]
         )
-
-        # ic(batch["list_obj_feat"])
-        # ic(batch["list_ocr_feat"])
-        # ic(obj_embed)
-        # ic(ocr_embed)
 
         ocr_mask = batch["ocr_mask"]
         obj_mask = batch["obj_mask"]
@@ -212,39 +208,39 @@ class LSTMR(nn.Module):
             return scores, caption_inds
             
         else:
-            # with torch.no_grad():
-            for step in range(1, self.max_length, 1):
-                prev_word_embed = _batch_gather(
-                    x=vocab_embed,
-                    inds=prev_inds
-                )[:, step-1, :]
+            with torch.no_grad():
+                for step in range(1, self.max_length, 1):
+                    prev_word_embed = _batch_gather(
+                        x=vocab_embed,
+                        inds=prev_inds
+                    )[:, step-1, :]
 
-                cur_h, cur_c = self.decoder(
-                    obj_features=obj_embed,
-                    ocr_features=ocr_embed,
-                    ocr_mask=ocr_mask,
-                    obj_mask=obj_mask,
-                    prev_hidden_state=prev_h,
-                    prev_cell_state=prev_c,
-                    prev_word_embed=prev_word_embed
-                )
-                prev_h = cur_h
-                prev_c = cur_c
+                    cur_h, cur_c = self.decoder(
+                        obj_features=obj_embed,
+                        ocr_features=ocr_embed,
+                        ocr_mask=ocr_mask,
+                        obj_mask=obj_mask,
+                        prev_hidden_state=prev_h,
+                        prev_cell_state=prev_c,
+                        prev_word_embed=prev_word_embed
+                    )
+                    prev_h = cur_h
+                    prev_c = cur_c
 
-                results = {
-                    "hidden_state": cur_h,
-                    "prev_word_inds": torch.flatten(prev_inds[:, step-1]), # Previous idx
-                    "vocab_size": self.num_choices,
-                    "ocr_feat": ocr_embed,
-                    "ocr_boxes": batch["list_ocr_boxes"],
-                    "ocr_mask": ocr_mask
-                }
-                score = self.forward_output(results=results) # BS, num_common + num_ocr, 1
-                scores[:, step, :] = score.permute(0, 2, 1).squeeze(1) # BS, 1, num_common + num_ocr
-                argmax_inds = score.argmax(dim=1) # BS, 1
-                # ic(argmax_inds.shape)
-                prev_inds[:, step] = argmax_inds.squeeze(-1)
-            return scores, prev_inds
+                    results = {
+                        "hidden_state": cur_h,
+                        "prev_word_inds": torch.flatten(prev_inds[:, step-1]), # Previous idx
+                        "vocab_size": self.num_choices,
+                        "ocr_feat": ocr_embed,
+                        "ocr_boxes": batch["list_ocr_boxes"],
+                        "ocr_mask": ocr_mask
+                    }
+                    score = self.forward_output(results=results) # BS, num_common + num_ocr, 1
+                    scores[:, step, :] = score.permute(0, 2, 1).squeeze(1) # BS, 1, num_common + num_ocr
+                    argmax_inds = score.argmax(dim=1) # BS, 1
+                    # ic(argmax_inds.shape)
+                    prev_inds[:, step] = argmax_inds.squeeze(-1)
+                return scores, prev_inds
 
     def forward_output(self, results):
         """

@@ -4,7 +4,6 @@
 #SBATCH -o /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/lstmr.out
 #SBATCH --error=lstmr_error.out
 #SBATCH --gres=gpu:1
-#SBATCH --mem=50G
 #SBATCH -N 1
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
@@ -25,5 +24,9 @@ EOF
 
 echo "===== Training ====="
 cd /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR
-
-source /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/scripts/train.sh
+python main.py \
+--config ./config/lstmr_config_yolo.yaml \
+--save_dir ./save \
+--run_type train \
+--device cuda:0 \
+--resume_file /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/save/checkpoints/model_last.pth

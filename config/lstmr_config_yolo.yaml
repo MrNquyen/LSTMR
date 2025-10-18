@@ -15,6 +15,7 @@ model_attributes:
   fasttext_bin: ./utils/fasttext/wiki.vi.bin
   # fasttext_bin: utils/fasttext/wiki.vi.bin
   hidden_size: 768
+  dropout: 0.1
   ocr:
     dim: 256
     num_ocr: 100
@@ -26,7 +27,7 @@ model_attributes:
     # pretrained: /data2/npl/ViInfographicCaps/model/phobert-base
     pretrained: /data2/npl/ViInfographicCaps/model/bert-base-uncased
     common_vocab: /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/vocab.txt
-    max_length: 30
+    max_length: 50
     return_tensors: pt
   adjust_optimizer:
     lr_scale: 0.1 # scale lr for finetuning modules
@@ -34,9 +35,9 @@ optimizer_attributes:
   lr_scale: 0.1 # scale lr for finetuning modules
   params:
     eps: 1.0e-08
-    lr: 5e-5
-    weight_decay: 0
-  type: Adam
+    lr: 3e-5
+    weight_decay: 0.01
+  type: AdamW
 training_parameters:
   epochs: 26
   batch_size: 128

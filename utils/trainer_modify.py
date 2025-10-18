@@ -14,7 +14,7 @@ from utils.model_utils import get_optimizer_parameters, lr_lambda_update
 from utils.module_utils import _batch_padding, _batch_padding_string
 from utils.logger import Logger
 from utils.metrics import metric_calculate
-from utils.utils import save_json, count_nan
+from utils.utils import save_json, count_nan, check_requires_grad
 from utils.registry import registry
 from project.models.lstmr_modify import LSTMR
 from icecream import ic
@@ -252,12 +252,7 @@ class Trainer():
                     list_captions, list_ocr_tokens
                 ).to(self.device)
                 loss = self._extract_loss(scores_output, targets)
-
-
-                ################### DEBUG ###############
-                # ic(scores_output.shape, targets.shape)
-                # ic(scores_output)
-                # ic(targets)
+                ic(loss)
                 self._backward(loss)
                 if self.current_iteration > self.max_iterations:
                     break
@@ -337,6 +332,7 @@ class Trainer():
                     self.writer_evaluation.LOG_INFO(f"Logging at epoch {epoch_id}")
                 
                 pred_caps = self.get_pred_captions(pred_inds, list_ocr_tokens)
+                ic(pred_caps)
                 for id, pred_cap, ref_cap in zip(list_id, pred_caps, list_captions):
                     hypo[id] = [pred_cap]
                     ref[id]  = [ref_cap]
