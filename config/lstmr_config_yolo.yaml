@@ -1,17 +1,17 @@
 
 dataset_attributes:
   image_features:
-    train: /data2/npl/ViInfographicCaps/data/swintextspotter, /data2/npl/ViInfographicCaps/data/yolo_object
-    val: /data2/npl/ViInfographicCaps/data/swintextspotter, /data2/npl/ViInfographicCaps/data/yolo_object
-    test: /data2/npl/ViInfographicCaps/data/swintextspotter, /data2/npl/ViInfographicCaps/data/yolo_object
+    train: /datastore/npl/ViInfographicCaps/data/swintextspotter, /datastore/npl/ViInfographicCaps/data/yolo_object
+    val: /datastore/npl/ViInfographicCaps/data/swintextspotter, /datastore/npl/ViInfographicCaps/data/yolo_object
+    test: /datastore/npl/ViInfographicCaps/data/swintextspotter, /datastore/npl/ViInfographicCaps/data/yolo_object
     # - open_images/detectron_fix_100/fc6/test,m4c_textvqa_ocr_en_frcn_features/test_images
   imdb_files:
-    train: /data2/npl/ViInfographicCaps/data/imdb/train_imdb_yolo.npy
-    val: /data2/npl/ViInfographicCaps/data/imdb/val_imdb_yolo.npy
-    test: /data2/npl/ViInfographicCaps/data/imdb/test_imdb_yolo.npy
+    train: /datastore/npl/ViInfographicCaps/data/imdb/train_imdb_yolo.npy
+    val: /datastore/npl/ViInfographicCaps/data/imdb/val_imdb_yolo.npy
+    test: /datastore/npl/ViInfographicCaps/data/imdb/test_imdb_yolo.npy
 
 model_attributes:
-  image_dir: /data2/npl/ViInfographicCaps/data/images
+  image_dir: /datastore/npl/ViInfographicCaps/data/images
   fasttext_bin: ./utils/fasttext/wiki.vi.bin
   # fasttext_bin: utils/fasttext/wiki.vi.bin
   hidden_size: 768
@@ -24,9 +24,9 @@ model_attributes:
     dim: 320
     num_obj: 100
   text_embedding:
-    # pretrained: /data2/npl/ViInfographicCaps/model/phobert-base
-    pretrained: /data2/npl/ViInfographicCaps/model/bert-base-uncased
-    common_vocab: /data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/vocab.txt
+    # pretrained: /datastore/npl/ViInfographicCaps/model/phobert-base
+    pretrained: /datastore/npl/ViInfographicCaps/model/bert-base-uncased
+    common_vocab: /datastore/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/vocab.txt
     max_length: 50
     return_tensors: pt
   adjust_optimizer:
@@ -41,7 +41,8 @@ optimizer_attributes:
 training_parameters:
   epochs: 26
   batch_size: 128
-  iterations: 9000
+  early_stopping:
+    patience: 5
   lr_scheduler:
     status: true
     type: "step"
@@ -57,7 +58,6 @@ training_parameters:
   max_iterations: 12000
   snapshot_interval: 500
   # snapshot_interval: 500
-  monitored_metric: m4c_textcaps/textcaps_bleu4
   metric_minimize: false
   seed: 2021
 

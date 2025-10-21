@@ -165,7 +165,7 @@ class LSTMR(nn.Module):
         prev_inds = torch.full((batch_size, self.max_length), pad_idx).to(self.device)
         prev_inds[:, 0] = start_idx
 
-        scores = torch.full((batch_size, self.max_length, vocab_size), pad_idx).to(self.device).to(torch.float16)
+        scores = torch.full((batch_size, self.max_length, vocab_size), pad_idx).to(self.device).to(torch.float32)
           
         if self.training:
             #~ Get inds of all token in the sentences
@@ -194,7 +194,8 @@ class LSTMR(nn.Module):
                 )
                 prev_h = cur_h
                 prev_c = cur_c
-                
+                # ic(count_nan(prev_h))
+                # ic(count_nan(prev_c))
                 results = {
                     "hidden_state": cur_h,
                     "prev_word_inds": torch.flatten(prev_word_inds),

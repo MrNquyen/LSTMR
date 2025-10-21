@@ -6,6 +6,7 @@ from project.modules.multimodal_embedding import OCREmbedding, ObjEmbedding, Wor
 from project.modules.geo_relationship_batch_processing import GeoRelationship
 from project.modules.decoder import Decoder
 from utils.registry import registry
+from utils.utils import count_nan
 from utils.module_utils import _batch_gather
 from torch.nn import functional as F
 from icecream import ic
@@ -160,7 +161,7 @@ class LSTMR(nn.Module):
         prev_inds = torch.full((batch_size, self.max_length), pad_idx).to(self.device)
         prev_inds[:, 0] = start_idx
 
-        scores = torch.full((batch_size, self.max_length, vocab_size), pad_idx).to(self.device).to(torch.float16)
+        scores = torch.full((batch_size, self.max_length, vocab_size), pad_idx).to(self.device).to(torch.float32)
           
         if self.training:
             #~ Get inds of all token in the sentences
@@ -341,7 +342,7 @@ class OcrPtrNet(nn.Module):
         scores = F.sigmoid(torch.concat([
             common_scores,
             ocr_scores
-        ], dim=1))
+        ], dim=1), dim=1)
         return scores # BS, num_common + num_ocr, 1 
 
 

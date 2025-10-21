@@ -2,6 +2,7 @@ import json
 import torch
 import numpy as np
 import yaml
+import random
 
 #---- Load json
 def load_json(path):
@@ -53,3 +54,12 @@ def check_requires_grad(module, name="module"):
             print(f"[Frozen]    {name}.{n}: {tuple(p.shape)}")
             frozen += 1
     print(f"\nSummary for {name}: {trainable} trainable / {frozen} frozen parameters\n")
+
+
+def set_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False

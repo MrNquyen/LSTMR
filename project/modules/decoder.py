@@ -3,6 +3,7 @@ from torch import nn
 from project.modules.attention import LSTMAttention
 from torch.nn import functional as F
 from utils.registry import registry 
+from utils.utils import count_nan 
 from icecream import ic
 
 class DecoderBase(nn.Module):
@@ -29,7 +30,7 @@ class Decoder(DecoderBase):
             input_dim=self.hidden_size,
             hidden_size=self.hidden_size
         )
-
+        self.layer_norm = nn.LayerNorm(self.hidden_size)
         self.dropout = nn.Dropout(self.model_config["dropout"])
     def forward(
             self, 
@@ -74,7 +75,14 @@ class Decoder(DecoderBase):
             cell_inputs,
             (prev_hidden_state, prev_cell_state)
         )
-        ht = self.dropout(ht)
+        
+        # ic(count_nan(attention_scores))
+        # ic(count_nan(attended_vector))
+        # ic(count_nan(ht))
+        # ic(count_nan(ct))
+
+        #-- Residual Connecttion avoid gradient vanishing
+        ht = self.layer_norm(self.dropout(ht + prev_hidden_state))
+        # ht = self.dropout(ht + prev_hidden_state)
         return ht, ct # Hidden_state, cell_state
 
-    

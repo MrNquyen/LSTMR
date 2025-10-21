@@ -57,8 +57,8 @@ class DistanceRelation(Base):
                 - p1: batch point 1: BS, 2
                 - p2: batch point 2: BS, 2
         """
-        p1 = p1.to(self.device).to(torch.float16)
-        p2 = p2.to(self.device).to(torch.float16)
+        p1 = p1.to(self.device).to(torch.float32)
+        p2 = p2.to(self.device).to(torch.float32)
         distance = torch.norm(p1 - p2, p=2, dim=-1).unsqueeze(-1)  # L2 norm
         return distance # BS,
 
@@ -183,7 +183,7 @@ class AngleRelation(Base):
         #         celsius.append(8)
         celsius = ((degree + 22.5) // 45).long() % 8  # giá trị từ 0 → 7
         celsius = celsius + 1
-        return celsius.unsqueeze(-1).to(torch.float16).to(self.device) # BS, 1
+        return celsius.unsqueeze(-1).to(torch.float32).to(self.device) # BS, 1
         
 
 

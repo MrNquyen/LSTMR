@@ -25,4 +25,4 @@ if __name__=="__main__":
     if args.run_type=="train":
         trainer.train()
     elif args.run_type=="inference":
-        trainer.inference(mode="test", save_dir="/data2/npl/ViInfographicCaps/workspace/baseline/LSTMR/save/results")
+        trainer.inference(mode="test", save_dir="/datastore/npl/ViInfographicCaps/workspace/baseline/LSTMR/save/results")

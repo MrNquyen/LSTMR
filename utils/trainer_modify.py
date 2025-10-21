@@ -14,12 +14,13 @@ from utils.model_utils import get_optimizer_parameters, lr_lambda_update
 from utils.module_utils import _batch_padding, _batch_padding_string
 from utils.logger import Logger
 from utils.metrics import metric_calculate
-from utils.utils import save_json, count_nan, check_requires_grad
+from utils.utils import save_json, count_nan, check_requires_grad, set_seed
 from utils.registry import registry
 from project.models.lstmr_modify import LSTMR
 from icecream import ic
 
 # ~Trainer~
+set_seed(2021)
 class Trainer():
     def __init__(self, config, args):
         self.args = args
@@ -70,6 +71,7 @@ class Trainer():
         self.batch_size = self.config.config_training["batch_size"]
         self.max_iterations = self.config.config_training["max_iterations"]
         self.snapshot_interval = self.config.config_training["snapshot_interval"]
+        self.early_stop_patience = self.config.config_training["early_stopping"]["patience"]
         self.current_iteration = 0
         self.current_epoch = 0
 
@@ -261,6 +263,7 @@ class Trainer():
                     _, _, val_final_scores, loss = self.evaluate(epoch_id=self.current_iteration, split="val")
                     # _, _, final_scores = self.evaluate(epoch_id=self.current_epoch, split="test")
                     if val_final_scores["CIDEr"] > best_scores:
+                        self.early_stop_counter = 0
                         best_scores = val_final_scores["CIDEr"]
                         self.save_model(
                             model=self.model,
@@ -272,6 +275,12 @@ class Trainer():
                             metric_score=best_scores,
                             use_name="best"
                         )
+                    else:
+                        self.early_stop_counter += 1
+                    if self.early_stop_counter >= self.early_stop_patience:
+                        self.writer.LOG_INFO("Early stopping triggered.")
+                        break
+                    
                     self.save_model(
                         model=self.model,
                         loss=loss,

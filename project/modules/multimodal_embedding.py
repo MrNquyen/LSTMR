@@ -258,7 +258,7 @@ class OCREmbedding(BaseEmbedding):
                     + Bounding box for each ocr tokens 
         """
         if not isinstance(ocr_boxes, torch.Tensor):
-            ocr_boxes = torch.as_tensor(ocr_boxes, dtype=torch.float16, device=self.device)
+            ocr_boxes = torch.as_tensor(ocr_boxes, dtype=torch.float32, device=self.device)
 
         idx = torch.tensor([0, 0, 2, 2, 1, 3, 3, 1], device=ocr_boxes.device)
         new_convert_boxes = ocr_boxes.index_select(-1, idx)
