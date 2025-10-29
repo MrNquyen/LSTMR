@@ -64,7 +64,7 @@ class Trainer():
 
     def build_model(self):
         self.model = LSTMR()
-        self.model.to(self.device)
+        self.model = self.model.to(self.device)
 
     def build_training_params(self):
         self.max_epochs = self.config.config_training["epochs"]
@@ -329,8 +329,7 @@ class Trainer():
                 targets = self.model.word_embedding.get_prev_inds(
                     list_captions, list_ocr_tokens
                 ).to(self.device)
-                # ic(scores_output)
-                # ic(targets)
+
                 loss = self._extract_loss(scores_output, targets)
                 loss_scalar = loss.detach().cpu().item()
                 ic(loss_scalar)

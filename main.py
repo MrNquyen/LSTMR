@@ -17,7 +17,7 @@ if __name__=="__main__":
     device = args.device
 
     # -- Get config
-    config = load_yml(args.config)
+    config = load_yml(config)
     config_container = Config(config)
 
     # -- Trainer
