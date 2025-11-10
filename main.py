@@ -3,8 +3,7 @@ from utils.configs import Config
 from utils.utils import load_yml
 from project.models.lstmr import LSTMR
 # from utils.trainer import Trainer
-from utils.trainer_modify import Trainer
-
+from utils.trainer_modify_epoch import Trainer
 
 if __name__=="__main__":
     # -- Get Parser

@@ -80,7 +80,8 @@ class LSTMR(nn.Module):
     
     def adjust_lr(self):
         #~ Word Embedding
-        self.add_finetune_modules(self.word_embedding)
+        # self.add_finetune_modules(self.word_embedding)
+        pass
 
 
     #-- ADJUST LEARNING RATE
@@ -147,7 +148,8 @@ class LSTMR(nn.Module):
           
         #-- Common embed and ocr embed
         batch_size = obj_embed.size(0)
-        common_vocab_embed = self.word_embedding.common_vocab.get_vocab_embedding()
+        # common_vocab_embed = self.word_embedding.common_vocab.get_vocab_embedding()
+        common_vocab_embed = self.classifier.weight
         common_vocab_embed = common_vocab_embed.unsqueeze(0).expand(batch_size, -1, -1)
         
         vocab_embed = torch.concat([
