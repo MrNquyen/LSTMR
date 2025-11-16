@@ -6,7 +6,7 @@ from project.modules.multimodal_embedding import OCREmbedding, ObjEmbedding, Wor
 from project.modules.geo_relationship_batch_processing import GeoRelationship
 from project.modules.decoder import Decoder
 from utils.registry import registry
-from utils.utils import count_nan
+from utils.utils import count_nan, save_tensor_txt, save_list_txt, check_requires_grad
 from utils.module_utils import _batch_gather
 from torch.nn import functional as F
 from icecream import ic
@@ -69,6 +69,7 @@ class LSTMR(nn.Module):
         )
         self.ptr_net = OcrPtrNet(self.hidden_size)
 
+
     def build_layers(self):
         self.ocr_embedding = OCREmbedding()
         self.obj_embedding = ObjEmbedding()
@@ -77,7 +78,11 @@ class LSTMR(nn.Module):
         self.decoder = Decoder()
         self.dropout = nn.Dropout(self.model_config["dropout"])
 
+        #-- Init Hidden State
+        self.init_h = nn.Linear(self.hidden_size, self.hidden_size)
+        self.init_c = nn.Linear(self.hidden_size, self.hidden_size)
     
+
     def adjust_lr(self):
         #~ Word Embedding
         # self.add_finetune_modules(self.word_embedding)
@@ -90,6 +95,7 @@ class LSTMR(nn.Module):
             'module': module,
             'lr_scale': self.model_config["adjust_optimizer"]["lr_scale"],
         })
+
 
     def get_optimizer_parameters(self, config_optimizer):
         """
@@ -119,23 +125,40 @@ class LSTMR(nn.Module):
         # so that the printed lr (of group 0) matches the default lr
         optimizer_param_groups.insert(0, {"params": remaining_params})
         
-        # check_overlap(finetune_params_set, remaining_params)
         return optimizer_param_groups
         
+
     def init_random(self, shape):
         return torch.normal(
             mean=0.0, 
             std=0.1, 
             size=shape
         ).to(self.device)
+
+
+    def init_hidden_state(self, obj_features, ocr_features):
+        """
+        Creates the initial hidden and cell states for the decoder's LSTM based on the encoded images.
+
+        :param encoder_out: encoded images, a tensor of dimension (batch_size, num_pixels, encoder_dim)
+        :return: hidden state, cell state
+        """
+
+        input_features = torch.concat([
+            obj_features,
+            ocr_features
+        ], dim=1)
+        fuse_features = torch.mean(input_features, dim=1)
+
+        h = self.init_h(fuse_features)  # (batch_size, decoder_dim)
+        c = self.init_c(fuse_features)
+        return h, c
         
     #-- FORWARD
     def forward(
             self,
             batch
         ):
-
-        # ic(batch["list_obj_feat"])
         obj_embed = self.obj_embedding(batch["list_obj_feat"])
         ocr_embed = self.ocr_embedding(
             ocr_feat=batch["list_ocr_feat"].to(self.device),
@@ -145,13 +168,13 @@ class LSTMR(nn.Module):
 
         ocr_mask = batch["ocr_mask"]
         obj_mask = batch["obj_mask"]
-          
+
         #-- Common embed and ocr embed
         batch_size = obj_embed.size(0)
         # common_vocab_embed = self.word_embedding.common_vocab.get_vocab_embedding()
         common_vocab_embed = self.classifier.weight
         common_vocab_embed = common_vocab_embed.unsqueeze(0).expand(batch_size, -1, -1)
-        
+
         vocab_embed = torch.concat([
             common_vocab_embed,
             ocr_embed
@@ -162,8 +185,11 @@ class LSTMR(nn.Module):
         pad_idx = self.word_embedding.common_vocab.get_pad_index()
         start_idx = self.word_embedding.common_vocab.get_start_index() 
 
-        prev_h = self.init_random(shape=(batch_size, self.hidden_size))
-        prev_c = self.init_random(shape=(batch_size, self.hidden_size))
+        # prev_h = self.init_random(shape=(batch_size, self.hidden_size))
+        # prev_c = self.init_random(shape=(batch_size, self.hidden_size))
+
+        prev_h, prev_c = self.init_hidden_state(obj_embed, ocr_embed)
+
         prev_inds = torch.full((batch_size, self.max_length), pad_idx).to(self.device)
         prev_inds[:, 0] = start_idx
 
@@ -196,8 +222,7 @@ class LSTMR(nn.Module):
                 )
                 prev_h = cur_h
                 prev_c = cur_c
-                # ic(count_nan(prev_h))
-                # ic(count_nan(prev_c))
+
                 results = {
                     "hidden_state": cur_h,
                     "prev_word_inds": torch.flatten(prev_word_inds),
@@ -260,6 +285,8 @@ class LSTMR(nn.Module):
         #~ All value
         hidden_state = results["hidden_state"]
         prev_inds = results["prev_word_inds"]
+
+
         common_vocab_size = results["vocab_size"]
         ocr_feat = results["ocr_feat"]
         ocr_boxes = results["ocr_boxes"] # BS, num_ocr, 4
@@ -304,6 +331,7 @@ class LSTMR(nn.Module):
         ], dim=-1)
 
             #~~ Calculate common vocab scores
+
         fixed_scores = self.classifier(hidden_state).unsqueeze(-1) #  BS, num_vocab, 1
         ocr_scores = self.ptr_net(
             hidden_state=hidden_state,
@@ -366,6 +394,7 @@ class OcrPtrNet(nn.Module):
 
         ocr_scores = ocr_scores / math.sqrt(self.hidden_size)
         ocr_scores = ocr_scores + extended_attention_mask
+        
         return ocr_scores
  
 

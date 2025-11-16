@@ -10,7 +10,7 @@ class LSTMAttention(nn.Module):
         self.device = registry.get_args("device")
         self._mask_value = -1e9
         self.activation = nn.Tanh()
-        self.softmax = nn.Softmax()
+        self.softmax = nn.Softmax(dim=1)
         self.w = nn.Linear(
             in_features=hidden_size,
             out_features=1
@@ -54,18 +54,7 @@ class LSTMAttention(nn.Module):
                 self.input_linear(input_features)
             )
         ).to(self.device)
-
-        # extended_attention_mask = (1.0 - mask) * -10000.0
-        # extended_attention_mask = extended_attention_mask
-        # scores = scores + extended_attention_mask
-
+        
         scores = scores.masked_fill(mask == 0, self._mask_value)
         attn_weights = self.softmax(scores)
-
-        #-- Avoid nan
-        # attn_weights = torch.where(
-        #     attn_weights.isnan(),
-        #     torch.zeros_like(attn_weights),
-        #     attn_weights
-        # )
         return attn_weights

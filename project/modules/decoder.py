@@ -30,8 +30,15 @@ class Decoder(DecoderBase):
             input_dim=self.hidden_size,
             hidden_size=self.hidden_size
         )
+
+        self.residual_proj = nn.Linear(
+            in_features=self.hidden_size*3,
+            out_features=self.hidden_size,
+
+        )
         self.layer_norm = nn.LayerNorm(self.hidden_size)
         self.dropout = nn.Dropout(self.model_config["dropout"])
+    
     def forward(
             self, 
             obj_features,
@@ -53,7 +60,6 @@ class Decoder(DecoderBase):
         #-- Fuse OCR and Obj features with mean
         fuse_features = torch.mean(input_features, dim=1)
 
-        # ic(fuse_features)
         #-- Calculate attention scores
         attention_scores = self.attention(
             prev_hidden_state=prev_hidden_state,
@@ -75,14 +81,9 @@ class Decoder(DecoderBase):
             cell_inputs,
             (prev_hidden_state, prev_cell_state)
         )
-        
-        # ic(count_nan(attention_scores))
-        # ic(count_nan(attended_vector))
-        # ic(count_nan(ht))
-        # ic(count_nan(ct))
 
-        #-- Residual Connecttion avoid gradient vanishing
-        ht = self.layer_norm(self.dropout(ht + prev_hidden_state))
+        #-- Residual Connection avoid gradient vanishing
+        ht = self.layer_norm(ht + self.dropout(self.residual_proj(cell_inputs)))
         # ht = self.dropout(ht + prev_hidden_state)
         return ht, ct # Hidden_state, cell_state
 

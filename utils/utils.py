@@ -63,3 +63,19 @@ def set_seed(seed):
     torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
+
+
+def save_tensor_txt(tensor, path, delimiter=' ', fmt='%.6f'):
+    # Move to CPU and convert to numpy
+    if tensor.is_cuda:
+        tensor = tensor.cpu()
+    
+    numpy_array = tensor.detach().numpy()
+    
+    # Save with numpy savetxt
+    np.savetxt(path, numpy_array, delimiter=delimiter, fmt=fmt)
+
+
+def save_list_txt(data, path, delimiter='\n'):
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(delimiter.join(map(str, data)))
