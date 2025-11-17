@@ -19,6 +19,8 @@ class Decoder(DecoderBase):
         super().__init__()
         
         #-- Layers
+        # num_ocr = self.model_config["ocr"]["num_ocr"]
+        # num_obj = self.model_config["obj"]["num_obj"]
         self.lstm_cell = nn.LSTMCell(
             input_size=self.hidden_size*3,
             hidden_size=self.hidden_size,
@@ -47,10 +49,11 @@ class Decoder(DecoderBase):
             ocr_mask,
             prev_hidden_state,
             prev_cell_state,
+            prev_attended_vector,
             prev_word_embed
         ):
         #-- Concat OCR features and Obj features
-        mask = torch.cat([obj_mask, ocr_mask], dim=1).unsqueeze(-1) 
+        mask = torch.cat([obj_mask, ocr_mask], dim=1)
         input_features = torch.concat([
             obj_features,
             ocr_features
@@ -67,13 +70,13 @@ class Decoder(DecoderBase):
             mask=mask
         )
 
-        prev_hidden_state_attention = input_features * attention_scores
-        attended_vector = torch.sum(prev_hidden_state_attention, dim=1)
+        hidden_state_attention = input_features * attention_scores.unsqueeze(-1)
+        cur_attended_vector = torch.sum(hidden_state_attention, dim=1).squeeze(1)
 
         #-- Input to cell
         cell_inputs = torch.concat([
             fuse_features,
-            attended_vector,
+            prev_attended_vector,
             prev_word_embed
         ], dim=-1)
 
@@ -85,5 +88,5 @@ class Decoder(DecoderBase):
         #-- Residual Connection avoid gradient vanishing
         ht = self.layer_norm(ht + self.dropout(self.residual_proj(cell_inputs)))
         # ht = self.dropout(ht + prev_hidden_state)
-        return ht, ct # Hidden_state, cell_state
+        return ht, ct, cur_attended_vector # Hidden_state, cell_state, cur_attended_vector
 

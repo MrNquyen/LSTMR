@@ -39,7 +39,7 @@ class LSTMAttention(nn.Module):
             Parameters:
             -----------
                 - prev_hidden_state: BS, hidden_size
-                - input_features: BS, M+N, input_dim
+                - input_features: BS, M+N, hidden_size
                     + Object and OCR Features
 
             Output:
@@ -53,8 +53,9 @@ class LSTMAttention(nn.Module):
                 self.hidden_state_linear(prev_hidden_state.unsqueeze(1)) + \
                 self.input_linear(input_features)
             )
-        ).to(self.device)
-        
+        ).squeeze(-1).to(self.device)
+        # ic(scores.shape)
+        # ic(mask.shape)
         scores = scores.masked_fill(mask == 0, self._mask_value)
         attn_weights = self.softmax(scores)
         return attn_weights

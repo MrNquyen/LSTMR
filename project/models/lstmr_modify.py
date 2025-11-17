@@ -189,6 +189,7 @@ class LSTMR(nn.Module):
         # prev_c = self.init_random(shape=(batch_size, self.hidden_size))
 
         prev_h, prev_c = self.init_hidden_state(obj_embed, ocr_embed)
+        prev_attended_vector = self.init_random((batch_size, self.hidden_size))
 
         prev_inds = torch.full((batch_size, self.max_length), pad_idx).to(self.device)
         prev_inds[:, 0] = start_idx
@@ -211,13 +212,14 @@ class LSTMR(nn.Module):
             for step in range(self.max_length):
                 prev_word_inds = caption_inds[:, step]
                 prev_word_embed = caption_embed[:, step, :]
-                cur_h, cur_c = self.decoder(
+                cur_h, cur_c, prev_attended_vector = self.decoder(
                     obj_features=obj_embed,
                     ocr_features=ocr_embed,
                     ocr_mask=ocr_mask,
                     obj_mask=obj_mask,
                     prev_hidden_state=prev_h,
                     prev_cell_state=prev_c,
+                    prev_attended_vector=prev_attended_vector,
                     prev_word_embed=prev_word_embed
                 )
                 prev_h = cur_h
@@ -237,7 +239,7 @@ class LSTMR(nn.Module):
             
         else:
             with torch.no_grad():
-                for step in range(1, self.max_length, 1):
+                for step in range(0, self.max_length, 1):
                     prev_word_embed = _batch_gather(
                         x=vocab_embed,
                         inds=prev_inds
@@ -250,6 +252,7 @@ class LSTMR(nn.Module):
                         obj_mask=obj_mask,
                         prev_hidden_state=prev_h,
                         prev_cell_state=prev_c,
+                        prev_attended_vector=prev_attended_vector,
                         prev_word_embed=prev_word_embed
                     )
                     prev_h = cur_h
