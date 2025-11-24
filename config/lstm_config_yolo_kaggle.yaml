@@ -1,18 +1,18 @@
 
 dataset_attributes:
   image_features:
-    train: /datastore/npl/ViInfographicCaps/data/swintextspotter, /datastore/npl/ViInfographicCaps/data/yolo_object
-    val: /datastore/npl/ViInfographicCaps/data/swintextspotter, /datastore/npl/ViInfographicCaps/data/yolo_object
-    test: /datastore/npl/ViInfographicCaps/data/swintextspotter, /datastore/npl/ViInfographicCaps/data/yolo_object
+    train: /kaggle/working/data/swintextspotter, /kaggle/working/data/yolo_object
+    val: /kaggle/working/data/swintextspotter, /kaggle/working/data/yolo_object
+    test: /kaggle/working/data/swintextspotter, /kaggle/working/data/yolo_object
     # - open_images/detectron_fix_100/fc6/test,m4c_textvqa_ocr_en_frcn_features/test_images
   imdb_files:
-    train: /datastore/npl/ViInfographicCaps/data/imdb/train_imdb_yolo.npy
-    val: /datastore/npl/ViInfographicCaps/data/imdb/val_imdb_yolo.npy
-    test: /datastore/npl/ViInfographicCaps/data/imdb/test_imdb_yolo.npy
+    train: /kaggle/working/data/imdb/train_imdb_yolo_new.npy
+    val: /kaggle/working/data/imdb/val_imdb_yolo_new.npy
+    test: /kaggle/working/data/imdb/test_imdb_yolo_new.npy
 
 model_attributes:
-  image_dir: /datastore/npl/ViInfographicCaps/data/images
-  fasttext_bin: ./utils/fasttext/wiki.vi.bin
+  # image_dir: /datastore/npl/ViInfographicCaps/data/images
+  fasttext_bin: /kaggle/working/cc.vi.300.bin
   # fasttext_bin: utils/fasttext/wiki.vi.bin
   hidden_size: 768
   dropout: 0.1
@@ -24,8 +24,8 @@ model_attributes:
     dim: 320
     num_obj: 100
   text_embedding:
-    # pretrained: /datastore/npl/ViInfographicCaps/model/phobert-base
-    pretrained: /datastore/npl/ViInfographicCaps/model/bert-base-uncased
+    pretrained: vinai/phobert-base
+    # pretrained: /datastore/npl/ViInfographicCaps/model/bert-base-uncased
     common_vocab: /datastore/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/vocab.txt
     max_length: 50
     return_tensors: pt
