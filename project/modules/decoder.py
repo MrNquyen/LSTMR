@@ -48,6 +48,7 @@ class Decoder(DecoderBase):
             obj_features,
             ocr_features
         ], dim=1)
+        
         num_features = input_features.size(1)
 
         #-- Fuse OCR and Obj features with mean

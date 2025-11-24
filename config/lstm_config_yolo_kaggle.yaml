@@ -1,0 +1,65 @@
+
+dataset_attributes:
+  image_features:
+    train: /datastore/npl/ViInfographicCaps/data/swintextspotter, /datastore/npl/ViInfographicCaps/data/yolo_object
+    val: /datastore/npl/ViInfographicCaps/data/swintextspotter, /datastore/npl/ViInfographicCaps/data/yolo_object
+    test: /datastore/npl/ViInfographicCaps/data/swintextspotter, /datastore/npl/ViInfographicCaps/data/yolo_object
+    # - open_images/detectron_fix_100/fc6/test,m4c_textvqa_ocr_en_frcn_features/test_images
+  imdb_files:
+    train: /datastore/npl/ViInfographicCaps/data/imdb/train_imdb_yolo.npy
+    val: /datastore/npl/ViInfographicCaps/data/imdb/val_imdb_yolo.npy
+    test: /datastore/npl/ViInfographicCaps/data/imdb/test_imdb_yolo.npy
+
+model_attributes:
+  image_dir: /datastore/npl/ViInfographicCaps/data/images
+  fasttext_bin: ./utils/fasttext/wiki.vi.bin
+  # fasttext_bin: utils/fasttext/wiki.vi.bin
+  hidden_size: 768
+  dropout: 0.1
+  ocr:
+    dim: 256
+    num_ocr: 100
+    concat_dim: 1160
+  obj:
+    dim: 320
+    num_obj: 100
+  text_embedding:
+    # pretrained: /datastore/npl/ViInfographicCaps/model/phobert-base
+    pretrained: /datastore/npl/ViInfographicCaps/model/bert-base-uncased
+    common_vocab: /datastore/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/vocab.txt
+    max_length: 50
+    return_tensors: pt
+  adjust_optimizer:
+    lr_scale: 0.1 # scale lr for finetuning modules
+optimizer_attributes:
+  lr_scale: 0.1 # scale lr for finetuning modules
+  params:
+    eps: 1.0e-08
+    lr: 3e-5
+    weight_decay: 0.01
+  type: AdamW
+training_parameters:
+  epochs: 26
+  batch_size: 128
+  early_stopping:
+    patience: 5
+  lr_scheduler:
+    status: true
+    type: "step"
+    step_size: 7000
+    gamma : 0.1
+    lr_steps:
+      - 6000
+      - 10000
+    lr_ratio: 0.1
+    use_warmup: true
+    warmup_factor: 0.2
+    warmup_iterations: 1000
+  max_iterations: 12000
+  snapshot_interval: 500
+  # snapshot_interval: 500
+  metric_minimize: false
+  seed: 2021
+
+
+    
