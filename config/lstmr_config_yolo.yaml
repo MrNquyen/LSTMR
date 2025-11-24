@@ -39,7 +39,7 @@ optimizer_attributes:
     weight_decay: 0.01
   type: AdamW
 training_parameters:
-  epochs: 40
+  epochs: 150
   batch_size: 64
   early_stopping:
     patience: 5
@@ -53,7 +53,7 @@ training_parameters:
       - 10000
     lr_ratio: 0.1
     decay_factor: 0.8
-    step_epoch_size: 3
+    step_epoch_size: 15
     warmup_iterations: 1000
   max_iterations: 12000
   snapshot_interval: 500

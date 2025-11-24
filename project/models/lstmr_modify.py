@@ -79,8 +79,9 @@ class LSTMR(nn.Module):
         self.dropout = nn.Dropout(self.model_config["dropout"])
 
         #-- Init Hidden State
-        self.init_h = nn.Linear(self.hidden_size, self.hidden_size)
-        self.init_c = nn.Linear(self.hidden_size, self.hidden_size)
+        # self.init_h = nn.Linear(self.hidden_size, self.hidden_size)
+        # self.init_c = nn.Linear(self.hidden_size, self.hidden_size)
+        # self.init_prev_attended_vector = nn.Linear(self.hidden_size, self.hidden_size)
     
 
     def adjust_lr(self):
@@ -136,23 +137,24 @@ class LSTMR(nn.Module):
         ).to(self.device)
 
 
-    def init_hidden_state(self, obj_features, ocr_features):
-        """
-        Creates the initial hidden and cell states for the decoder's LSTM based on the encoded images.
+    # def init_hidden_state(self, obj_features, ocr_features):
+    #     """
+    #     Creates the initial hidden and cell states for the decoder's LSTM based on the encoded images.
 
-        :param encoder_out: encoded images, a tensor of dimension (batch_size, num_pixels, encoder_dim)
-        :return: hidden state, cell state
-        """
+    #     :param encoder_out: encoded images, a tensor of dimension (batch_size, num_pixels, encoder_dim)
+    #     :return: hidden state, cell state
+    #     """
 
-        input_features = torch.concat([
-            obj_features,
-            ocr_features
-        ], dim=1)
-        fuse_features = torch.mean(input_features, dim=1)
+    #     input_features = torch.concat([
+    #         obj_features,
+    #         ocr_features
+    #     ], dim=1)
+    #     fuse_features = torch.mean(input_features, dim=1)
 
-        h = self.init_h(fuse_features)  # (batch_size, decoder_dim)
-        c = self.init_c(fuse_features)
-        return h, c
+    #     h = self.init_h(fuse_features)  # (batch_size, decoder_dim)
+    #     c = self.init_c(fuse_features)
+    #     prev_attended_vector = self.init_prev_attended_vector(fuse_features)
+    #     return h, c, prev_attended_vector
         
     #-- FORWARD
     def forward(
@@ -185,11 +187,12 @@ class LSTMR(nn.Module):
         pad_idx = self.word_embedding.common_vocab.get_pad_index()
         start_idx = self.word_embedding.common_vocab.get_start_index() 
 
-        # prev_h = self.init_random(shape=(batch_size, self.hidden_size))
-        # prev_c = self.init_random(shape=(batch_size, self.hidden_size))
+        prev_h = self.init_random(shape=(batch_size, self.hidden_size))
+        prev_c = self.init_random(shape=(batch_size, self.hidden_size))
+        prev_attended_vector = self.init_random(shape=(batch_size, self.hidden_size))
+         
 
-        prev_h, prev_c = self.init_hidden_state(obj_embed, ocr_embed)
-        prev_attended_vector = self.init_random((batch_size, self.hidden_size))
+        # prev_h, prev_c, prev_attended_vector = self.init_hidden_state(obj_embed, ocr_embed)
 
         prev_inds = torch.full((batch_size, self.max_length), pad_idx).to(self.device)
         prev_inds[:, 0] = start_idx
@@ -245,7 +248,7 @@ class LSTMR(nn.Module):
                         inds=prev_inds
                     )[:, step-1, :]
 
-                    cur_h, cur_c = self.decoder(
+                    cur_h, cur_c, prev_attended_vector = self.decoder(
                         obj_features=obj_embed,
                         ocr_features=ocr_embed,
                         ocr_mask=ocr_mask,
