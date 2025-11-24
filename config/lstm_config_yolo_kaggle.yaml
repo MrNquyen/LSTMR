@@ -26,7 +26,7 @@ model_attributes:
   text_embedding:
     pretrained: vinai/phobert-base
     # pretrained: /datastore/npl/ViInfographicCaps/model/bert-base-uncased
-    common_vocab: /datastore/npl/ViInfographicCaps/workspace/baseline/LSTMR/data/vocab.txt
+    common_vocab: /kaggle/working/vocab.txt
     max_length: 50
     return_tensors: pt
   adjust_optimizer:
